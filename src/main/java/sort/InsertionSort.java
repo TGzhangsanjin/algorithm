@@ -11,7 +11,7 @@ public class InsertionSort {
 
     public static void main(String[] args) {
 
-        int [] A = new int[1000000];
+        int [] A = new int[100000];
         for (int i = 1; i < A.length - 1; i++) {
             A[i] = (int) (Math.random() * 100);
         }
