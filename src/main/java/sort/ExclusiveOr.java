@@ -3,10 +3,10 @@ package sort;
 public class ExclusiveOr {
 
     public static void main(String[] args) {
-        int[] arr = {1,3,1,3,3,3,5,1,5,5,5};
-        System.out.println(findOdd(arr));
+        int[] arr = {1,3,1,3,3,3,5,1,5,5,5,6,6,7};
+        printOddTimes2(arr);
+        // @TODO  写一个对数器，来验证，算法方法 printOddTimes2()
 
-        System.out.println(getRightOne(30));
     }
 
     /**
@@ -32,6 +32,36 @@ public class ExclusiveOr {
     public static int getRightOne(int a) {
         return a & (~a + 1);
 //        return a & (-a);
+    }
+
+    /**
+     * 一个树祖宗，有两种数存在奇数次，其它数都存在偶数次，打印这两种树
+     * @param arr
+     */
+    public static void printOddTimes2(int[] arr) {
+
+        // 先获取到 a^b 的值, 假设 a和b是这两种数
+        int xor = 0;
+        for (int i = 0; i < arr.length; i++) {
+            // xor == a ^ b
+            xor ^= arr[i];
+        }
+
+        // 提取xor最右侧的一个1来，
+        // 例如： 10000111001111100
+        //提取后: 00000000000000100
+        int rightOne = xor & (~xor + 1);
+        int xor_ = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if ((rightOne & arr[i]) != 0) {
+                xor_ ^= arr[i];
+            }
+        }
+        //xor_ 就是 a、b中的1种数，，那么另一个数就是  xor_ ^ xor
+
+        System.out.println("打印出这两个数：" +  xor_ + "、" + (xor_ ^ xor));
+
+
     }
 
 }

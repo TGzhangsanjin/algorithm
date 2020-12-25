@@ -81,4 +81,5 @@ public class Divide {
         }
         return middle - 1;
     }
+
 }
