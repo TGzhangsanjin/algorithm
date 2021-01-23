@@ -22,7 +22,7 @@ public class DoubleNode<T> {
     /**
      * 上一个节点
      */
-    private DoubleNode last;
+    private DoubleNode previous;
 
     public DoubleNode() {
         super();
@@ -48,22 +48,52 @@ public class DoubleNode<T> {
         this.next = next;
     }
 
-    public DoubleNode getLast() {
-        return last;
+    public DoubleNode getPrevious() {
+        return previous;
     }
 
-    public void setLast(DoubleNode last) {
-        this.last = last;
+    public void setPrevious(DoubleNode previous) {
+        this.previous = previous;
     }
+
     /**
-     * 输出 node 节点
+     * 获取最后一个节点
+     * @param head 传入的头结点
+     * @return 返回尾节点
+     */
+    public static DoubleNode getLastOne(DoubleNode head) {
+        // 1、先找到最后一个节点的值
+        while(head.getNext() != null) {
+            head = head.getNext();
+        }
+        return head;
+    }
+
+    /**
+     * 顺序打印 双链表的值
      * @param node 头结点
      */
-    public static void printNode(DoubleNode node) {
+    public static void printNodeAsc(DoubleNode node) {
         do {
             System.out.print(node.getT() + "-->");
             node = node.getNext();
         }while(node.getNext() != null);
+        System.out.println(node.getT());
+    }
+
+
+    /**
+     * 逆序打印双链表的值
+     * @param node 头结点
+     */
+    public static void printNodeDesc(DoubleNode node) {
+        // 1、先找到最后一个节点的值
+        node = getLastOne(node);
+        // 2、反向打印
+        do {
+            System.out.print(node.getT() + "-->");
+            node = node.getPrevious();
+        }while(node.getPrevious() != null);
         System.out.println(node.getT());
     }
 
@@ -79,9 +109,39 @@ public class DoubleNode<T> {
         while(size != 0) {
             DoubleNode current = new DoubleNode((int) (Math.random() * range) + 1);
             pre.setNext(current);
-            current.setLast(pre);
+            current.setPrevious(pre);
             pre = current;
             size --;
+        }
+        return head;
+    }
+
+    /**
+     * 删除单链表中的指定值
+     * @param head 待删除的链表
+     * @param deleteValue 待删除的值
+     * @return 返回删后的链表
+     */
+    public static DoubleNode delete(DoubleNode head, Integer deleteValue) {
+        // 1、第一步，需要先处理头部
+        while(head != null) {
+            if (!head.getT().equals(deleteValue)) {
+                break;
+            }
+            head = head.getNext();
+        }
+        // 2、遍历列表中，除了头部外，需要删除的节点
+        DoubleNode pre = head;
+        DoubleNode cur = head;
+        while(cur.getNext() != null) {
+            cur = cur.getNext();
+            if (cur.getT().equals(deleteValue)) {
+                pre.setNext(cur.getNext());
+                if (cur.getNext() != null) {
+                    cur.getNext().setPrevious(pre);
+                }
+            }
+            pre = cur;
         }
         return head;
     }
@@ -97,7 +157,7 @@ public class DoubleNode<T> {
         while (head != null) {
             next = head.next;
             head.next = pre;
-            head.last = next;
+            head.previous = next;
             pre = head;
             head = next;
         }
@@ -105,8 +165,19 @@ public class DoubleNode<T> {
     }
 
     public static void main(String[] args) {
-        DoubleNode node = buildDoubleNode(10, 100);
-        printNode(node);
-        printNode(reverseDoubleNode(node));
+//        DoubleNode node = buildDoubleNode(10, 100);
+//        printNode(node);
+//        printNode(reverseDoubleNode(node));
+
+        // 测试双链表删除给定值
+        DoubleNode node = buildDoubleNode(40, 10);
+        System.out.println("打印的初始值：");
+        printNodeAsc(node);
+        node = delete(node, 10);
+        System.out.println("打印的删除后的顺序值：");
+        printNodeAsc(node);
+        System.out.println("打印的删除后的逆序值：");
+        printNodeDesc(node);
+
     }
 }
