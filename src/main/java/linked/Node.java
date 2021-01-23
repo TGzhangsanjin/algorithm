@@ -69,7 +69,37 @@ public class Node<T> {
         System.out.println(node.getT());
     }
 
+
+    /**
+     * 删除单链表中的指定值
+     * @param head 待删除的链表
+     * @param deleteValue 待删除的值
+     * @return 返回删后的链表
+     */
+    public static Node delete(Node head, Integer deleteValue) {
+        // 1、第一步，需要先处理头部
+        while(head != null) {
+            if (!head.getT().equals(deleteValue)) {
+                break;
+            }
+            head = head.getNext();
+        }
+        // 2、遍历列表中，除了头部外，需要删除的节点
+        Node current = head;
+        while(current.getNext() != null) {
+            if (current.getNext().getT().equals(deleteValue)) {
+                current.setNext(current.getNext().getNext());
+            }
+            current = current.getNext();
+        }
+        return head;
+    }
+
     public static void main(String[] args) {
-        printNode(buildNode(10, 100));
+        Node node = buildNode(40, 5);
+        printNode(node);
+        node = delete(node, 5);
+        System.out.println();
+        printNode(node);
     }
 }
