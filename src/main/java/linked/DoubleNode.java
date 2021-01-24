@@ -74,11 +74,16 @@ public class DoubleNode<T> {
      * @param node 头结点
      */
     public static void printNodeAsc(DoubleNode node) {
-        do {
-            System.out.print(node.getT() + "-->");
+        if (node == null) {
+            System.out.println("这是一个空的节点！");
+            return;
+        }
+        System.out.print(node.getT() + "-->");
+        while(node.getNext() != null) {
             node = node.getNext();
-        }while(node.getNext() != null);
-        System.out.println(node.getT());
+            System.out.print(node.getT() + "-->");
+        }
+        System.out.println();
     }
 
 
