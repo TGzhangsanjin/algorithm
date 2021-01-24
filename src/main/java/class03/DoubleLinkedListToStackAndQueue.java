@@ -156,7 +156,7 @@ public class DoubleLinkedListToStackAndQueue {
         // 测试的次数
         int testTimes = 1000;
         // 每次测试的数字个数
-        int oneTestDataNum = 1000;
+        int oneTestDataNum = 10000;
         // 数字的范围
         int range = 10000;
         for (int i = 0; i < testTimes; i++) {
