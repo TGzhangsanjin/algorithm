@@ -52,30 +52,21 @@ public class RingArrayToQueue {
             if (count == size) {
                 return false;
             }
-            if (count == 0) {
-                queue[endIndex] = t;
-            } else if (endIndex == size - 1) {
-                queue[0] = t;
-                endIndex = 0;
-            } else {
-                queue[++endIndex] = t;
-            }
-            count++;
+            count ++;
+            // 小技巧，先给endIndex 赋值，在去处理endIndex, endIndex 上的值不需要去关心，只是一个标记而已
+            queue[endIndex] = t;
+            endIndex = endIndex < size - 1 ? endIndex++: 0;
             return true;
         }
 
         public int pop() {
             if (count == 0) {
                 return -1;
-            } else if (count == 1) {
-                count = 0;
-                return queue[beginIndex];
-            } else if (beginIndex == size - 1) {
-                beginIndex = 0;
-                return queue[size - 1];
-            } else {
-                return queue[beginIndex++];
             }
+            int value = queue[beginIndex];
+            count--;
+            beginIndex = beginIndex < size - 1 ? beginIndex++: 0;
+            return value;
         }
     }
 
