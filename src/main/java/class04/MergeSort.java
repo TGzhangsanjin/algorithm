@@ -62,20 +62,59 @@ public class MergeSort {
         }
     }
 
+    /**
+     * 非递归，迭代的方式处理归并排序
+     */
+    public static void iteratorMergeSort(int[] arr) {
+        if (arr == null || arr.length < 1) {
+            return;
+        }
+        int N = arr.length;
+        // 步长
+        int mergeSize = 1;
+        while (mergeSize < N) {
+            int left = 0;
+            while (left < N) {
+                // 注意，每次循环过后，每mergeSize 个数肯定都是已经排好序的
+                if (mergeSize >= N - left) {
+                    break;
+                }
+
+                int middle = left + mergeSize - 1;
+                int right = middle + Math.min(mergeSize, N - middle - 1);
+                merge(arr, left, middle, right);
+                left = right + 1;
+            }
+
+            // 防止溢出
+            if (mergeSize > (N >> 1)) {
+                break;
+            }
+            // 步长，每次乘以2
+            mergeSize <<= 1;
+        }
+    }
+
     public static void main(String[] args) {
-        int testTimes = 1;
-        int arraySize = 100;
+
+        int testTimes = 1000;
+        int arraySize = 1000;
         int range = 10000;
         for (int i = 0; i < testTimes; i++) {
-            int[] array = new int[arraySize];
+            int[] array1 = new int[arraySize];
+            int[] array2 = new int[arraySize];
             for (int j = 0; j < arraySize; j++) {
-                array[j] = (int)(Math.random() * range) + 1;
+                int num = (int)(Math.random() * range) + 1;
+                array1[j] = num;
+                array2[j] = num;
             }
-            mergeSort(array);
+            mergeSort(array1);
+            iteratorMergeSort(array2);
             for (int j = 0; j < arraySize; j++) {
-                System.out.print(array[j] + ",");
+                if (!(array1[j] == array2[j])) {
+                    System.out.println("出错了！！");
+                }
             }
-            System.out.println();
         }
     }
 }
