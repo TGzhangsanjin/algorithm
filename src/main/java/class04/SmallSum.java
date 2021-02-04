@@ -44,7 +44,8 @@ public class SmallSum {
         while(windowLeft <= middle && windowRight <= right) {
             // 处理累加
             sum += array[windowLeft] < array[windowRight] ? array[windowLeft] * (right - windowRight + 1) : 0;
-
+            // 注意：array[windowLeft] 不大于 array[windowRight]时，一定要先拷贝 array[windowRight]
+            // 因为我要定位 array[windowLeft] 对应的小和有多少
             help[i++] = array[windowLeft] < array[windowRight] ? array[windowLeft++] : array[windowRight++];
         }
         while (windowLeft <= middle) {
