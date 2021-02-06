@@ -26,7 +26,7 @@ public class ReversePair {
         }
 
         int middle = left + ((right - left) >> 1);
-        return process(array, left, middle) + process(array, middle + 1, right) + mergeError(array, left, middle, right);
+        return process(array, left, middle) + process(array, middle + 1, right) + merge(array, left, middle, right);
     }
 
     public static int merge (int[] array, int left, int middle, int right) {
