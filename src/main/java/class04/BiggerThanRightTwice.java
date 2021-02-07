@@ -29,7 +29,7 @@ public class BiggerThanRightTwice {
 
     public static int merge(int[] array, int left, int middle, int right) {
 
-        // 可以再合并之前计算值
+        // 可以在合并之前计算值
         int count = 0;
         int p2 = middle + 1;
 //        for (int p1 = left; p1 <= middle; p1++) {
