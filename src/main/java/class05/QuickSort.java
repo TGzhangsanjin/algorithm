@@ -11,58 +11,82 @@ public class QuickSort {
 
 
     /**
-     * 荷兰国旗1.0版本： 给定一个数组arr，和数组中的一个下标 x，小于等于arr[x]的在数组中放左边，大于arr[x]的放右边
-     * 思路： arr[0...m] 为小于等于区,让小于等于区推着大于区向右边走
-     * 即：从0到arr.length - 1 遍历，  arr[0..m]为小于等于区，当arr[i]大于arr[x]时，直接跳到下一个，当arr[i] <= arr[x]时，
-     *    交换arr[i+1] 和 arr[m+1] 的值进行交换
+     * 快排1.0 版本
+     * 思路：递归方式处理，每次递归，以数组的最后一个值作为partition值，
+     * 具体：每次遍历arr[L...R-1]，将 <= partition 的值放在左边，>partition 的值放在右边，小区右界下标为min, 最后将arr[min + 1] 和 arr[R]进行交换
+     *      然后再去递归处理 arr[L...min] 和 arr[min+2...R]
+     * 总结： 即每次递归都只确定一个数
      */
-    public static void dutchFlag01(int[] arr, int x) {
+    public static void quickSort01(int[] arr) {
         if (arr == null || arr.length < 2) {
             return;
         }
-        if (x < 0 || x > arr.length - 1) {
+        process01(arr, 0, arr.length - 1);
+    }
+
+    public static void process01(int [] arr, int left, int right) {
+        if (left >= right) {
             return;
         }
-        int partitionNum = arr[x];
-        int min = -1;
-        int i = 0;
-        while (i <= arr.length - 1) {
-            if (arr[i] <= partitionNum) {
+        int middle = partition01(arr, left, right);
+        if (middle == -1) {
+            return;
+        }
+        process01(arr, left, middle - 1);
+        process01(arr, middle + 1, right);
+    }
+
+    /**
+     * 返回分割小区和大区的下标
+     */
+    public static int partition01(int [] arr, int left, int right) {
+        if (left > right) {
+            return -1;
+        }
+        if (left == right) {
+            return left;
+        }
+        int min = left - 1;
+        int i = left;
+        while (i < right) {
+            if (arr[i] <= arr[right]) {
                 swap(arr, i, ++min);
             }
             i++;
         }
+        // 最后将arr[right]值放到正确的位置
+        swap(arr, ++min, right);
+        return min;
     }
 
     public static void main(String[] args) {
-        int size = 10000;
-        int range = 10000;
-        int[] arr = randomArray(size, range);
-        // 随机生成一个下标
-        int x = (int) (Math.random() * size);
-        int partitionNum = arr[x];
-        dutchFlag01(arr, x);
-        validateDutchFlag01(arr, partitionNum);
-//        for (int i = 0; i < size; i++) {
-//            System.out.print(arr[i] + ",");
-//        }
-    }
-
-    public static void validateDutchFlag01(int[] arr, int partitionNum) {
-        // 找出最小区的右边界
-        int min = 0;
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] <= partitionNum) {
-                min++;
+        int size = 1000;
+        int range = 100;
+        int[] arr1 = randomArray(size, range);
+        int[] arr2 = copyArray(arr1);
+        bubbleSort(arr1);
+        quickSort01(arr2);
+        for (int i = 0; i < arr1.length; i++) {
+            if (arr1[i] != arr2[i]) {
+                System.out.println("出错了！！！！");
             }
         }
-        if (min + 1 == arr.length - 1) {
+    }
+
+
+    /**
+     * For Test
+     * 手写一个冒泡排序用作对数器
+     */
+    public static void bubbleSort(int[] arr) {
+        if (arr == null || arr.length < 2) {
             return;
         }
-        // 判断min+1 到arr.length - 1 之间是否还存在小于等于partitionNum 的数，如果存在则抛出错误
-        for (int i = min + 1; i < arr.length; i++) {
-            if (arr[i] <= partitionNum) {
-                System.out.println("出错了！！！！！");
+        for (int i = arr.length - 1; i > 0 ; i--) {
+            for (int j = 0; j < i; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    swap(arr, j, j + 1);
+                }
             }
         }
     }
@@ -84,6 +108,17 @@ public class QuickSort {
         int temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
+    }
+
+    /**
+     * For Test
+     */
+    public static int[] copyArray(int [] arr) {
+        int[] arr2 = new int[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            arr2[i] = arr[i];
+        }
+        return arr2;
     }
 
     /**
