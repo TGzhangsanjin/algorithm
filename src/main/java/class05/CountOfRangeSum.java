@@ -1,4 +1,4 @@
-package class04;
+package class05;
 
 /**
  * 求区间和个数
