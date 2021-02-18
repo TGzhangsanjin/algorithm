@@ -12,7 +12,7 @@ public class QuickSort {
 
     /**
      * 快排1.0 版本
-     * 思路：递归方式处理，每次递归，以数组的最后一个值作为partition值，
+     * 思路：递归方式处理，每次递归，以数组的最后一个值作为partition值，将这个数放到正确的位置
      * 具体：每次遍历arr[L...R-1]，将 <= partition 的值放在左边，>partition 的值放在右边，小区右界下标为min, 最后将arr[min + 1] 和 arr[R]进行交换
      *      然后再去递归处理 arr[L...min] 和 arr[min+2...R]
      * 总结： 即每次递归都只确定一个数
@@ -59,15 +59,64 @@ public class QuickSort {
         return min;
     }
 
+    /**
+     * 快排2.0 版本
+     * 思路：相对于1.0版本，。每次选出一组数来，即将最后一个值partition以及与该值相等的数都放到正确的位置
+     * 具体： partition 方法使用荷兰国旗的2.0版本
+     * @param arr
+     */
+    public static void quickSort02(int[] arr) {
+        if (arr == null || arr.length < 2) {
+            return;
+        }
+        process02(arr, 0, arr.length - 1);
+    }
+    public static void process02(int[] arr, int left, int right) {
+        if (left >= right) {
+            return;
+        }
+        int[] partitionArr = partition02(arr, left, right);
+        if (partitionArr != null) {
+            process02(arr, left, partitionArr[0] - 1);
+            process02(arr, partitionArr[1] + 1, right);
+        }
+    }
+
+    /**
+     * 返回相等区的左界和右界
+     */
+    public static int[] partition02(int[] arr, int left, int right) {
+        if (left >= right) {
+            return null;
+        }
+        int min = left - 1;
+        int max = right;
+        int i = left;
+        while (i < max) {
+            if (arr[i] < arr[right]) {
+                swap(arr, i, ++min);
+                i++;
+            } else if (arr[i] > arr[right]) {
+                swap(arr, i, --max);
+            } else {
+                i++;
+            }
+        }
+        swap(arr, right, max);
+        return new int[]{min + 1, max};
+    }
+
     public static void main(String[] args) {
-        int size = 1000;
-        int range = 100;
+        int size = 10000;
+        int range = 1000;
         int[] arr1 = randomArray(size, range);
         int[] arr2 = copyArray(arr1);
+        int[] arr3 = copyArray(arr1);
         bubbleSort(arr1);
         quickSort01(arr2);
+        quickSort02(arr3);
         for (int i = 0; i < arr1.length; i++) {
-            if (arr1[i] != arr2[i]) {
+            if (arr1[i] != arr3[i]) {
                 System.out.println("出错了！！！！");
             }
         }
