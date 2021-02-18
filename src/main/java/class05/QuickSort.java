@@ -102,8 +102,33 @@ public class QuickSort {
                 i++;
             }
         }
+        // 当选取有边界的数为partition时，需要加上这一步交换处理
         swap(arr, right, max);
         return new int[]{min + 1, max};
+    }
+
+    /**
+     * 快排3.0版本  随机快排
+     * 思路：与2.0的不同之处在于，partition值不再一直是选取最后，而是在left和right之间随机选取一个
+     */
+    public static void quickSort03(int[] arr) {
+        if (arr == null || arr.length < 2) {
+            return;
+        }
+        process03(arr, 0, arr.length - 1);
+    }
+
+    public static void process03(int[] arr, int left, int right) {
+        if (left >= right) {
+            return;
+        }
+        swap(arr, right,  (int)(Math.random() * (right - left + 1)) + left);
+        int[] partitionArr = partition02(arr, left, right);
+        if (partitionArr != null) {
+            process03(arr, left, partitionArr[0] - 1);
+            process03(arr, partitionArr[1] + 1, right);
+        }
+
     }
 
     public static void main(String[] args) {
@@ -112,11 +137,13 @@ public class QuickSort {
         int[] arr1 = randomArray(size, range);
         int[] arr2 = copyArray(arr1);
         int[] arr3 = copyArray(arr1);
+        int[] arr4 = copyArray(arr1);
         bubbleSort(arr1);
         quickSort01(arr2);
         quickSort02(arr3);
+        quickSort03(arr4);
         for (int i = 0; i < arr1.length; i++) {
-            if (arr1[i] != arr3[i]) {
+            if (arr1[i] != arr4[i]) {
                 System.out.println("出错了！！！！");
             }
         }
