@@ -1,5 +1,7 @@
 package class05;
 
+import java.util.Stack;
+
 /**
  * 快速排序
  * @Author 张三金
@@ -131,19 +133,60 @@ public class QuickSort {
 
     }
 
+    /**
+     * 快速排序  非递归方式，自建一个栈来代替递归使用的系统栈
+     */
+    public static void quickSort04(int[] array) {
+        if (array == null || array.length < 2) {
+            return;
+        }
+        int length = array.length;
+        // 将随机选取的partition值和数组的最后一位数进行交换
+        swap(array, (int) (Math.random() * length), length - 1);
+        // 将随机选取到的这个数的顺序排到正确的位置上
+        int[] boundary = partition02(array, 0 , array.length - 1);
+        Stack<Op> stack = new Stack<>();
+        stack.push(new Op(0, boundary[0] - 1));
+        stack.push(new Op(boundary[1] + 1, length - 1));
+        while(!stack.isEmpty()) {
+            // 这一行相当于使用递归时的结束条件
+            Op op = stack.pop();
+            if (op.left < op.right) {
+                swap(array, op.left + (int) (Math.random() * (op.right - op.left + 1)), op.right);
+                boundary = partition02(array, op.left , op.right);
+                stack.push(new Op(op.left, boundary[0] - 1));
+                stack.push(new Op(boundary[1] + 1, op.right));
+            }
+        }
+    }
+
+    /**
+     * 一个工具类，用来存储
+     */
+    public static class Op{
+        public int left;
+        public int right;
+        public Op(int left, int right) {
+            this.left = left;
+            this.right = right;
+        }
+    }
+
     public static void main(String[] args) {
         int size = 10000;
-        int range = 1000;
+        int range = 10000;
         int[] arr1 = randomArray(size, range);
         int[] arr2 = copyArray(arr1);
         int[] arr3 = copyArray(arr1);
         int[] arr4 = copyArray(arr1);
+        int[] arr5 = copyArray(arr1);
         bubbleSort(arr1);
-        quickSort01(arr2);
-        quickSort02(arr3);
-        quickSort03(arr4);
+//        quickSort01(arr2);
+//        quickSort02(arr3);
+//        quickSort03(arr4);
+        quickSort04(arr5);
         for (int i = 0; i < arr1.length; i++) {
-            if (arr1[i] != arr4[i]) {
+            if (arr1[i] != arr5[i]) {
                 System.out.println("出错了！！！！");
             }
         }
