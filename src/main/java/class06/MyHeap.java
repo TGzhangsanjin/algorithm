@@ -7,10 +7,12 @@ package class06;
  * 3) 小根堆：完全二叉树中如果每棵子树的最小值都在顶部就是小根堆
  * 4) 堆结构的 heapInsert与 heapify 操作
  * 5) 堆结构的增大和减少
- * 6) 优先级队列结构，就是堆结构
+ * 6) 优先级队列结构（PriorityQueue），就是堆结构
  *
  * 对于堆中的完全二叉树结构：
  * 下标为 i 的节点的左孩子（如果有）则，左孩子的下标为 2i+1, 右孩子(如果有)的下标为（2i+2），其父节点的下标则为 (i-1)/2
+ *
+ * 7) 如果某个位置上的数在堆结构中的位置不对，则调用 heapInsert 和 heapify 方法就可以让该位置的数放到正确位置上，而且两个方法只有一个会真正的执行
  * @Author 张三金
  * @Date 2021/2/20 0020 20:20
  * @Company jzb
@@ -43,8 +45,7 @@ public class MyHeap {
 
         public int pop() {
             int res = heap[0];
-            heapSize--;
-            swap(heap, 0, heapSize - 1);
+            swap(heap, 0, --heapSize);
             heapify(heap, 0, heapSize);
             return res;
         }
