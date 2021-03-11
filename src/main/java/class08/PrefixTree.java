@@ -142,7 +142,6 @@ public class PrefixTree {
                int path = 0;
                for (int i = 0; i < words.length; i++) {
                    path = words[i] - 'a';
-                   // 直接在判断语句里面就把 pass 的值给减了，，
                    node.next[path].pass -= wordTime;
                    if (node.next[path].pass == 0) {
                        // pass减掉后如果为0了，则说明后面的都不需要考虑了，直接删除掉当前path指向的节点即可
