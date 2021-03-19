@@ -26,6 +26,20 @@ public class Util01 {
     }
 
     /**
+     *  拷贝数组
+     */
+    public static int[] copyArray(int[] array) {
+        if (array == null || array.length == 0) {
+            return null;
+        }
+        int[] targetArray = new int[array.length];
+        for (int i = 0; i < array.length; i++) {
+            targetArray[i] = array[i];
+        }
+        return targetArray;
+    }
+
+    /**
      * 交换数组中两个下标的值
      */
     public static void swapArray(int[] array, int i, int j) {
@@ -33,4 +47,6 @@ public class Util01 {
         array[i] = array[j];
         array[j] = temp;
     }
+
+
 }

@@ -4,7 +4,7 @@ import utils.Util01;
 
 /**
  *
- * 选择排序
+ * 选择排序  时间复杂度 O(n * n), 空间复杂度 O(1)
  * @Author 张三金
  * @Date 2021/3/18 0018 21:03
  * @Company jzb
@@ -13,7 +13,7 @@ import utils.Util01;
 public class SelectedSort {
 
     public static void sorted(int[] array) {
-        if (array == null || array.length == 1) {
+        if (array == null || array.length < 2) {
             return;
         }
         int minIndex;
