@@ -4,7 +4,7 @@ import sort.SelectSort;
 import utils.Util01;
 
 /**
- * 插入排序
+ * 插入排序 时间复杂度 O(n * n), 空间复杂度O(1)
  * @Author 张三金
  * @Date 2021/3/19 0019 22:41
  * @Company jzb
@@ -36,7 +36,7 @@ public class InsertSort {
 
     public static void main(String[] args) {
         int testTimes = 100;
-        int oneTimeNums = 100;
+        int oneTimeNums = 10000;
         int range = 10000;
         for (int i = 0; i < testTimes; i++) {
             int[] array1 = Util01.randomArray(oneTimeNums, range);
