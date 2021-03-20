@@ -17,6 +17,7 @@ public class BubbleSort {
         }
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array.length - i - 1; j++) {
+                // 这里直接写大于才交换位置，这样就可以保证排序的稳定性
                 if (array[j] > array[j + 1]) {
                     Util01.swapArray(array, j, j + 1);
                 }
