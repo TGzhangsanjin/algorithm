@@ -13,4 +13,6 @@ public class Inner<T> {
     public Inner(T value) {
         this.value = value;
     }
+
+    
 }

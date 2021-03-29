@@ -63,7 +63,7 @@ public class ArrayToStack {
                     myStack.push(nums);
                     stack.push(nums);
                 } else {
-                    if (Math.random() < 0.5) {
+                    if (Math.random() < 0.5) {                                                       
                         myStack.push(nums);
                         stack.push(nums);
                     } else {
