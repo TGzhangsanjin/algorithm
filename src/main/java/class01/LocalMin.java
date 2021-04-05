@@ -17,19 +17,19 @@ import java.util.Set;
  */
 public class LocalMin {
 
-    /**
-     *
-     */
     public static int solve (int[] array) {
         if (array == null && array.length < 2) {
             return -1;
         }
+        // 判断index = 0 时是否满足
         if (array[0] < array[1]) {
             return 0;
         }
+        // 判断 index = 1 时是否满足
         if (array[array.length - 1] < array[array.length - 2]) {
             return array.length - 1;
         }
+        // 说明整个数组是一个向下凹的趋势，那么数组中一定存在局部最小值（非两个边界）
         int left = 1;
         int right = array.length - 2;
         while (left < right) {
@@ -57,13 +57,13 @@ public class LocalMin {
             return null;
         }
         int[] array = new int[size];
-        Set<Integer> numbers = new HashSet<>();
+        int lastNumber = -1;
         for (int i = 0; i < size; i++) {
             int number = (int) (Math.random() * range) + 1;
-            while (numbers.contains(number)) {
+            while (lastNumber == number) {
                 number = (int) (Math.random() * range) + 1;
             }
-            numbers.add(number);
+            lastNumber = number;
             array[i] = number;
         }
         return array;
