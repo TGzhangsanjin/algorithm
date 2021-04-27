@@ -1,5 +1,6 @@
 package class02;
 
+import java.io.File;
 import java.security.Principal;
 
 /**
@@ -68,12 +69,15 @@ public class XOROperation {
     }
 
     public static void main(String[] args) {
-        swapNumber(7, -9);
-        int[] array = {2,2,2,3,2,3,7,-1,7};
-        System.out.println(findOneOddNumber(array));
+//        swapNumber(7, -9);
+//        int[] array = {2,2,2,3,2,3,7,-1,7};
+//        System.out.println(findOneOddNumber(array));
+//
+//        int[] array1 = {2,2,2,3,2,3,6,7,-1,7, 6, 7};
+//        int[] result = findTwoOddNumber(array1);
+//        System.out.println(result[0] + "======"+ result[1]);
 
-        int[] array1 = {2,2,2,3,2,3,6,7,-1,7, 6, 7};
-        int[] result = findTwoOddNumber(array1);
-        System.out.println(result[0] + "======"+ result[1]);
+        File file = new File("file:///C:/Users/Administrator/Downloads/%E4%B8%9A%E4%B8%BB%E5%8D%95%E4%BD%8D%E5%88%97%E8%A1%A8%20-%20%E5%89%AF%E6%9C%AC.html");
+        System.out.println(file);
     }
 }
