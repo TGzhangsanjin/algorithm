@@ -1,4 +1,4 @@
-package class08;
+package old.class08;
 
 import java.util.List;
 import java.util.LinkedList;

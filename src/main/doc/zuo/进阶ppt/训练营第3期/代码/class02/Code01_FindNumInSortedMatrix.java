@@ -1,4 +1,4 @@
-package class02;
+package old.class02;
 
 public class Code01_FindNumInSortedMatrix {
 

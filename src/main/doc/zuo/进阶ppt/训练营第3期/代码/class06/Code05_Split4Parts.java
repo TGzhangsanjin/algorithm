@@ -1,4 +1,4 @@
-package class06;
+package old.class06;
 
 import java.util.HashMap;
 import java.util.HashSet;

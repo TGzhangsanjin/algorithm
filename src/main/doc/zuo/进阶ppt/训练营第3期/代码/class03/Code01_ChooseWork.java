@@ -1,4 +1,4 @@
-package class03;
+package old.class03;
 
 import java.util.Arrays;
 import java.util.Comparator;

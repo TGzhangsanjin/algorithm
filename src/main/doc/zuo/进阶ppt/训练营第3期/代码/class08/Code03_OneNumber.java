@@ -1,4 +1,4 @@
-package class08;
+package old.class08;
 
 public class Code03_OneNumber {
 

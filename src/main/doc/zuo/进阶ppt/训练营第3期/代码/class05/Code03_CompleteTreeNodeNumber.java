@@ -1,4 +1,4 @@
-package class05;
+package old.class05;
 
 public class Code03_CompleteTreeNodeNumber {
 

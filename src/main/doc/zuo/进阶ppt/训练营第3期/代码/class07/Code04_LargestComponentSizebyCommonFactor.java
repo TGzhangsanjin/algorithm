@@ -1,4 +1,4 @@
-package class07;
+package old.class07;
 
 import java.util.HashMap;
 import java.util.Stack;

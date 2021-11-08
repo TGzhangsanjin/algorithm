@@ -1,4 +1,4 @@
-package class06;
+package old.class06;
 
 public class Code01_SizeBalancedTreeMap {
 

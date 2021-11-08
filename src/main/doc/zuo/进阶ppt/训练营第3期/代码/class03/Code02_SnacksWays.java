@@ -1,4 +1,4 @@
-package class03;
+package old.class03;
 
 public class Code02_SnacksWays {
 

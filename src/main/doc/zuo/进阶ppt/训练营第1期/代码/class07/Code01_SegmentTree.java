@@ -1,4 +1,4 @@
-package class07;
+package old.class07;
 
 public class Code01_SegmentTree {
 

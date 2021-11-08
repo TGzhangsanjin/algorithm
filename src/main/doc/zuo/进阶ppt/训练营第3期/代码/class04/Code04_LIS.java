@@ -1,4 +1,4 @@
-package class04;
+package old.class04;
 
 public class Code04_LIS {
 
