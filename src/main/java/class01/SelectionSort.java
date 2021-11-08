@@ -9,6 +9,15 @@ package class01;
  */
 public class SelectionSort {
 
+
+    public static void main(String[] args) {
+        int[] array = {-2, 4,12,24,56,78,23,1,23,45};
+        selectionSort(array);
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i] + ",");
+        }
+    }
+
     public static void selectionSort (int [] array ) {
         if (array == null || array.length < 2) {
             return;
@@ -17,14 +26,14 @@ public class SelectionSort {
         // 0 ~ N-2 之间的最大值选出来，放到 N-2 位置
         // ......
         // 0 ~ i 之间的z最大值选出来，放到 i 位置
-        for (int i = 0; i < array.length; i++) {
-            int maxIndex = array[i];
+        for (int i = array.length - 1; i > 0; i--) {
+            int maxIndex = i;
             for (int j = 0; j <= i; j++) {
-                if (array[j] > maxIndex) {
+                if (array[j] > array[maxIndex]) {
                     maxIndex = j;
                 }
             }
-            swap(array, maxIndex, array.length - i - 1);
+            swap(array, maxIndex, i);
         }
     }
 
