@@ -10,8 +10,8 @@ public class InsertSort {
 
     public static void main(String[] args) {
         // 写一个冒泡排序的对数器进行验证
-        int testTimes = 10000;
-        int oneTimeNums = 1000;
+        int testTimes = 10;
+        int oneTimeNums = 100000;
         int range = 10000;
         for (int i = 0; i < testTimes; i++) {
             int[] arr1 = randomArray(oneTimeNums, range);
@@ -31,6 +31,7 @@ public class InsertSort {
 
 
     public static void insert (int[] array) {
+        long start = System.currentTimeMillis();
         if (array == null || array.length < 2) {
             return;
         }
@@ -40,8 +41,9 @@ public class InsertSort {
                 swap(array, j, (j-1));
                 j--;
             }
-
         }
+        long end = System.currentTimeMillis();
+        System.out.println("插入排序耗时: " + (end - start) + " ms");
     }
 
     public static void swap (int[] array, int i, int j) {

@@ -31,6 +31,7 @@ public class BubbleSort {
     }
 
     public static void bubble (int[] array) {
+        long start = System.currentTimeMillis();
         if (array == null || array.length < 2) {
             return;
         }
@@ -42,6 +43,8 @@ public class BubbleSort {
                 }
             }
         }
+        long end = System.currentTimeMillis();
+        System.out.println("冒泡排序耗时: " + (end - start) + " ms");
     }
 
     public static void swap (int[] array, int i, int j) {
