@@ -8,12 +8,22 @@ package class01;
 public class InsertSort {
 
     public static void main(String[] args) {
-
-        int[] array = {1,2,23,-1,222,23,900};
-        insert(array);
-        for (int i = 0; i < array.length; i++) {
-            System.out.print(array[i]);
+        // 写一个冒泡排序的对数器进行验证
+        int testTimes = 10000;
+        int oneTimeNums = 1000;
+        int range = 10000;
+        for (int i = 0; i < testTimes; i++) {
+            int[] arr1 = randomArray(oneTimeNums, range);
+            int[] arr2 = copyArray(arr1);
+            insert(arr1);
+            BubbleSort.bubble(arr2);
+            for (int j = 0; j < arr1.length; j++) {
+                if (arr1[j] != arr2[j]) {
+                    System.out.println("出错了");
+                }
+            }
         }
+        System.out.println("结束了！！！！");
 
     }
 
@@ -40,6 +50,33 @@ public class InsertSort {
         array[i] = array[i] ^ array[j];
         array[j] = array[i] ^ array[j];
         array[i] = array[i] ^ array[j];
+    }
+
+    /**
+     * 生成一个大小指定、数字范围指定的随机数组
+     * @param oneTimeNums 数组指定大小
+     * @param range 数字返回指定
+     * @return 数组
+     */
+    public static int[] randomArray (int oneTimeNums, int range) {
+        int[] array = new int[oneTimeNums];
+        for (int i = 0; i < oneTimeNums; i++) {
+            array[i] = (int) (Math.random() * range) + 1;
+        }
+        return array;
+    }
+
+    /**
+     * 拷贝一个数组
+     * @param array 被拷贝的数组
+     * @return 数组
+     */
+    public static int[] copyArray (int[] array) {
+        int[] copy = new int[array.length];
+        for (int i = 0; i < copy.length; i++) {
+            copy[i] = array[i];
+        }
+        return copy;
     }
 
 

@@ -26,7 +26,6 @@ public class BubbleSort {
                     System.out.println("出错了！！！！！");
                 }
             }
-
         }
         System.out.println("执行成功！！！！");
     }
@@ -63,7 +62,7 @@ public class BubbleSort {
     public static int[] randomArray (int oneTimeNums, int range) {
         int[] array = new int[oneTimeNums];
         for (int i = 0; i < oneTimeNums; i++) {
-            array[i] = (int) Math.random() * range + 1;
+            array[i] = (int) (Math.random() * range) + 1;
         }
         return array;
     }
