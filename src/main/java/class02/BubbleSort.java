@@ -1,4 +1,4 @@
-package class01;
+package class02;
 
 /**
  * 冒泡排序， 时间复杂度  O(n^2)

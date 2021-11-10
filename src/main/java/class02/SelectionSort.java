@@ -1,4 +1,4 @@
-package class01;
+package class02;
 
 /**
  * 选择排序,时间复杂度是 O(n^2)
