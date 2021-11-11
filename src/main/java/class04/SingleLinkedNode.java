@@ -65,8 +65,71 @@ public class SingleLinkedNode {
         return pre;
     }
 
-    public static void main(String[] args) {
+    /**
+     * 删除单链表中的指定值对应的节点
+     * @param head 链表的头结点
+     * @param data 数据值
+     * @param <T> 节点汇总泛型类型
+     * @return
+     */
+    public static <T extends Object> Node removeValue (Node head, T data) {
+        // 需要先去处理头结点的情况
+        while (head != null && head.getValue().equals(data)) {
+            head = head.getNext();
+        }
+        if (head == null) {
+            return head;
+        }
 
+        Node current = head;
+        while (current.getNext() != null) {
+            if (data.equals(current.getNext().getValue())) {
+                current.setNext(current.getNext().getNext());
+            } else {
+                current = current.getNext();
+            }
+        }
+        return head;
+    }
+
+    public static void main(String[] args) {
+        checkReverse();
+        checkRemoveValue();
+
+    }
+
+    /**
+     * 校验删除数据的测试方法
+     */
+    private static void checkRemoveValue() {
+        int testTimes = 1000;
+        int oneTimesNum = 1000;
+        int range = 100;
+        for (int t = 0; t < testTimes; t++) {
+            List<Integer> list = generateRandomList(oneTimesNum, range);
+            Node node = generateRandomLinkedList02(list);
+            // 一个需要删除的value
+            Integer emperor = (int)(Math.random() * range) + 1;
+
+            List<Integer> newList = listDeleteValue(list, emperor);
+            Node newNode = removeValue(node, emperor);
+            if (newList.size() == 0 && newNode != null) {
+                System.out.println("Ops001!!!!!");
+                return;
+            }
+            for (int i = 0; i < newList.size(); i++) {
+                if (!newList.get(i).equals(newNode.getValue())) {
+                    System.out.println("Ops002!!!!!");
+                }
+                newNode = newNode.getNext();
+            }
+        }
+    }
+
+    /**
+     * 校验反转链表的方法
+     */
+    public static void checkReverse () {
         int testTimes = 1000;
         int oneTimesNum = 1000;
         int range = 1000;
@@ -82,10 +145,23 @@ public class SingleLinkedNode {
                 reverseNode = reverseNode.getNext();
             }
         }
-
-
     }
 
+    /**
+     * 集合删除指定的值
+     * @param old 旧的数组
+     * @param value 需要删除的值
+     * @return 删除指定值后的数组
+     */
+    private static List<Integer> listDeleteValue (List<Integer> old, Integer value) {
+        List<Integer> newList = new ArrayList<>();
+        for (int i = 0; i < old.size(); i++) {
+            if (!value.equals(old.get(i))) {
+                newList.add(old.get(i));
+            }
+        }
+        return newList;
+    }
 
     /**
      *  For Test
