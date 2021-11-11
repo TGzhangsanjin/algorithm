@@ -70,8 +70,9 @@ public class DoubleLinkedNode {
         return pre;
     }
 
-    public static void main(String[] args) {
+    public static 
 
+    public static void main(String[] args) {
         checkReverse();
     }
 
@@ -103,8 +104,6 @@ public class DoubleLinkedNode {
 
         }
     }
-
-
 
     /**
      * For Test
