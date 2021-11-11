@@ -7,7 +7,7 @@ package class04;
  * @Company jzb
  * @Version 1.0.0
  */
-public class SingleLinkedNode<T> {
+public class SingleLinkedNodeBak<T> {
 
     /**
      * 泛型值
@@ -17,9 +17,9 @@ public class SingleLinkedNode<T> {
     /**
      * 指向下一个节点
      */
-    private SingleLinkedNode next;
+    private SingleLinkedNodeBak next;
 
-    public SingleLinkedNode (T data) {
+    public SingleLinkedNodeBak(T data) {
         this.value = data;
     }
 
@@ -31,11 +31,11 @@ public class SingleLinkedNode<T> {
         this.value = value;
     }
 
-    public SingleLinkedNode getNext() {
+    public SingleLinkedNodeBak getNext() {
         return next;
     }
 
-    public void setNext(SingleLinkedNode next) {
+    public void setNext(SingleLinkedNodeBak next) {
         this.next = next;
     }
 }
