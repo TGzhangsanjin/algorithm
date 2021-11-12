@@ -81,11 +81,16 @@ public class SingleLinkedNode {
             return head;
         }
 
+        // 对于 java 中的引用，自己一直有一个不理解的地方，今天理解了 2021-11-12
+        // 这里 current 变量一开始是指向 head 的内存地址，后续又不断的指向  head的下一个节点，下下节点，下下下节点。。。。。。
+        // 所以 每次对 current 的修改，也就是相当于修改 head的下一个节点，下下节点，下下下节点。。。。。。。
+
         Node current = head;
         while (current.getNext() != null) {
             if (data.equals(current.getNext().getValue())) {
                 current.setNext(current.getNext().getNext());
             } else {
+                // 这里只是把 current 指向了下一个节点，并不会改变 head 这个变量的指向
                 current = current.getNext();
             }
         }

@@ -70,10 +70,75 @@ public class DoubleLinkedNode {
         return pre;
     }
 
-    public static 
+    /**
+     * 删除一个指定的 value 值
+     * @param head 头结点
+     * @param value 待删除的值
+     * @param <T>
+     * @return 删除给定值后返回的链表头结点
+     */
+    public static <T extends Object> Node removeValue (Node head, T value) {
+        while (head != null && value.equals(head.getValue())) {
+            head = head.getNext();
+        }
+        if (head != null) {
+            head.setPrevious(null);
+        } else {
+            return head;
+        }
+        Node pre = head;
+        Node current = head;
+        while (current != null) {
+            if (current.getValue().equals(value)) {
+                pre.setNext(current.getNext());
+            } else {
+                pre = current;
+            }
+            current =current.getNext();
+        }
+        return head;
+    }
 
     public static void main(String[] args) {
         checkReverse();
+        checkRemoveValue();
+    }
+
+    /**
+     * For Test
+     * 校验双链表的删除
+     */
+    public static void checkRemoveValue () {
+        int testTimes = 100;
+        int oneTimeNums = 10;
+        int range = 10;
+        for (int i = 0; i < testTimes; i++) {
+            List<Integer> list = generateRandomList(oneTimeNums, range);
+            Node node = generateDoubleLinked(list);
+            // 准备需要删除的一个真命天子
+            int theOne = (int)( Math.random() * range ) + 1;
+            System.out.println(theOne);
+            list = listDeleteValue(list, theOne);
+            node = removeValue(node, theOne);
+
+            int temp = 0;
+            for (int j = 0; j < list.size(); j++) {
+                // 这里是用来判断 next 节点有没有连错
+                if (!node.getValue().equals(list.get(j))) {
+                    System.out.println("出错了！！！！node.value ==" + node.getValue() + ",list.get(j)==" + list.get(j) + ", j===" + j);
+                    temp++;
+                }
+                // 这里是用来按断 previous 节点有没有连错
+//                if (j != 0) {
+//                    if (!node.getPrevious().getValue().equals(list.get(j - 1))) {
+//                        System.out.println("出错了！！！！");
+//                    }
+//                }
+                node = node.getNext();
+            }
+            System.out.println(temp);
+
+        }
     }
 
     /**
@@ -136,5 +201,21 @@ public class DoubleLinkedNode {
             list.add((int) (Math.random() * range) + 1);
         }
         return list;
+    }
+
+    /**
+     * 集合删除指定的值
+     * @param old 旧的数组
+     * @param value 需要删除的值
+     * @return 删除指定值后的数组
+     */
+    private static List<Integer> listDeleteValue (List<Integer> old, Integer value) {
+        List<Integer> newList = new ArrayList<>();
+        for (int i = 0; i < old.size(); i++) {
+            if (!value.equals(old.get(i))) {
+                newList.add(old.get(i));
+            }
+        }
+        return newList;
     }
 }
