@@ -43,7 +43,7 @@ public class InsertSort {
             }
         }
         long end = System.currentTimeMillis();
-        System.out.println("插入排序耗时: " + (end - start) + " ms");
+//        System.out.println("插入排序耗时: " + (end - start) + " ms");
     }
 
     public static void swap (int[] array, int i, int j) {

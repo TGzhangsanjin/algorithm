@@ -38,6 +38,57 @@ public class DichotomyWay {
     }
 
     /**
+     * 在有序（顺序）的数组 array 中，找出 >= m 最左侧的位置
+     * 一直二分去找，分到最后的那个数，即时要找的数
+     * @param array 有序（顺序）数组
+     * @param m 某个数
+     * @return 指定的数组下标
+     */
+    public static int greaterThanLeft (int[] array, int m) {
+        int left = 0;
+        int right = array.length - 1;
+        int index = -1; // 记录最左侧的位置
+        while (left <= right) {
+            int middle = left + ((right - left) >> 1);
+            if (array[middle] >= m ) {
+                index = middle;
+                right = middle - 1;
+            } else {
+                left = middle + 1;
+            }
+        }
+        return index;
+    }
+
+    /**
+     * 在有序（顺序）的数组array中，找出 <= m 最右侧的位置
+     * @param array 有序（顺序）数组
+     * @param m 指定的某个数
+     * @return 指定的数组下标
+     */
+    public static int lessThanRight (int[] array, int m) {
+        int left = 0;
+        int right = array.length - 1;
+        int index = -1; // 记录最右侧的数的位置
+        while (left <= right) {
+            int middle = left + ((right - left) >> 1);
+            if (array[middle] <= m) {
+                index = middle;
+                left = middle + 1;
+            } else {
+                right = middle - 1;
+            }
+        }
+        return index;
+    }
+
+    public static void main(String[] args) {
+        checkFindOne();
+        checkGreaterThanLeft();
+        checkLessThanRight();
+    }
+
+    /**
      * 获取到一个已经排好序的数组
      * @size 大小
      * @range 范围
@@ -82,9 +133,56 @@ public class DichotomyWay {
         System.out.println("结束了！！");
     }
 
-    public static void main(String[] args) {
-        checkFindOne();
+    // For Test
+    public static void checkGreaterThanLeft () {
+        int testTimes = 10000;
+        int oneTimeNums = 1000;
+        int range = 1000;
+        for (int i = 0; i < testTimes; i++) {
+            int[] array = sortedArray(oneTimeNums, range);
+            // 申请一个真命天子
+            int king = (int)(Math.random() * range) + 1;
+            int index = greaterThanLeft(array, king);
+            int testIndex = -1;
+            for (int j = 0; j < array.length; j++) {
+                if (array[j] >= king) {
+                    testIndex = j;
+                    break;
+                }
+            }
+            if (index != testIndex) {
+                System.out.println("Opps!!!!!");
+            }
+        }
     }
 
+    // For Test
+    public static void checkLessThanRight () {
+        int testTimes = 10000;
+        int oneTimeNums = 1000;
+        int range = 1000;
+        for (int i = 0; i < testTimes; i++) {
+            int[] array = sortedArray(oneTimeNums, range);
+            // 申请一个真命天子
+            int king = (int)(Math.random() * range) + 1;
+            int index = lessThanRight(array, king);
+            int testIndex = -1;
+            if (array[array.length - 1] <= king) {
+                testIndex = array.length - 1;
+            } else {
+                for (int j = 0; j < array.length; j++) {
+                    if (array[j] > king) {
+                        if (j > 0) {
+                            testIndex = j - 1;
+                        }
+                        break;
+                    }
+                }
+            }
 
+            if (index != testIndex) {
+                System.out.println("Opps!!!!! ==== testIndex ===" + testIndex + ", index ===" + index);
+            }
+        }
+    }
 }
