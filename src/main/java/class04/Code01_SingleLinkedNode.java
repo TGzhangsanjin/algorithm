@@ -10,7 +10,7 @@ import java.util.List;
  * @Company jzb
  * @Version 1.0.0
  */
-public class SingleLinkedNode {
+public class Code01_SingleLinkedNode {
 
     /**
      * 一个单链表的结构

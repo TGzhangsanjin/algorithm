@@ -11,7 +11,7 @@ import java.util.List;
  * @Company jzb
  * @Version 1.0.0
  */
-public class DoubleLinkedNode {
+public class Code02_DoubleLinkedNode {
 
     public static class Node<T> {
 
