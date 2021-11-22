@@ -14,5 +14,5 @@ package class03;
  * @Company jzb
  * @Version 1.0.0
  */
-public class KM {
+public class Code03_KM {
 }

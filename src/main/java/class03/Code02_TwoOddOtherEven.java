@@ -11,7 +11,7 @@ package class03;
  * @Company jzb
  * @Version 1.0.0
  */
-public class TwoOddOtherEven {
+public class Code02_TwoOddOtherEven {
 
     /**
      * 输入一个数组，返回一个大小是2的数组，返回值中a和b中更小的那个数是a[0], 更大的那个数是 a[1]

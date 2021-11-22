@@ -12,7 +12,7 @@ package class03;
  * @Company jzb
  * @Version 1.0.0
  */
-public class XORBase {
+public class Code01_XORBase {
 
     /**
      * 适用异或运算交换数组中的两个数
