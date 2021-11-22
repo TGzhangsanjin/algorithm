@@ -15,4 +15,38 @@ package class03;
  * @Version 1.0.0
  */
 public class Code03_KM {
+
+    public static int findK (int[] array, int k, int m) {
+        int[] temp = new int[32];
+        // 得到每个位上有多少个1
+        for (int i = temp.length - 1; i >= 0 ; i--) {
+            for (int j = 0; j < array.length; j++) {
+                int num = array[j] << i;
+                num = num & (-num);
+                if ((num & 1) != 0) {
+                    temp[i]++;
+                }
+            }
+        }
+        for (int i = temp.length - 1; i >= temp.length - 4 ; i--) {
+//            System.out.println(temp[i] + ",");
+        }
+        int ans = 0;
+//        for (int i = 0; i < temp.length; i++) {
+//            if ((temp[i] % m != 0) && (temp[i] % m == k)) {
+//                // 表名出现了k次的数，在第i位上是1
+//                ans |= (1 << i);
+//            } else {
+//                return -1;
+//            }
+//        }
+        return ans;
+    }
+
+    public static void main(String[] args) {
+//        0001, 0010, 0010
+        int[] array = {3,2,2};
+        System.out.println(findK(array, 1,2));
+
+    }
 }
