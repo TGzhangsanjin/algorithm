@@ -1,6 +1,7 @@
 package class04;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -100,122 +101,104 @@ public class DoubleLinkedNode {
     }
 
     public static void main(String[] args) {
-        checkReverse();
-        checkRemoveValue();
-    }
-
-    /**
-     * For Test
-     * 校验双链表的删除
-     */
-    public static void checkRemoveValue () {
-        int testTimes = 100;
-        int oneTimeNums = 10;
+        int testTimes = 10;
+        int oneTestNum = 5;
         int range = 10;
         for (int i = 0; i < testTimes; i++) {
-            List<Integer> list = generateRandomList(oneTimeNums, range);
-            Node node = generateDoubleLinked(list);
-            // 准备需要删除的一个真命天子
-            int theOne = (int)( Math.random() * range ) + 1;
-            System.out.println(theOne);
-            list = listDeleteValue(list, theOne);
-            node = removeValue(node, theOne);
 
-            int temp = 0;
-            for (int j = 0; j < list.size(); j++) {
-                // 这里是用来判断 next 节点有没有连错
-                if (!node.getValue().equals(list.get(j))) {
-                    System.out.println("出错了！！！！node.value ==" + node.getValue() + ",list.get(j)==" + list.get(j) + ", j===" + j);
-                    temp++;
-                }
-                // 这里是用来按断 previous 节点有没有连错
-//                if (j != 0) {
-//                    if (!node.getPrevious().getValue().equals(list.get(j - 1))) {
-//                        System.out.println("出错了！！！！");
-//                    }
-//                }
-                node = node.getNext();
+//            Node node01 = generateDoubleLinked(oneTestNum, range);
+//            List<Integer> list01 = getDoubleLinkedOriginOrder(node01);
+            // 讲道理这里的 node1 在执行完上一行后应该变成 null 的，为什么node1 指向的对象却不会变？？？
+//            node01 = reverse(node01);
+//            if (!checkReverse(list01, node01)) {
+//                System.out.printf("Reverse Opps!!!!");
+//            }
+
+            int deleteValue = (int) (Math.random() * range) + 1;
+            Node node02 = generateDoubleLinked(oneTestNum, range);
+            List<Integer> list02 = getDoubleLinkedOriginOrder(node02);
+            list02.removeIf(e -> e.equals(deleteValue));
+            node02 = removeValue(node02, deleteValue);
+            if (!checkDelete(list02, node02)) {
+                System.out.println("Delete Opps!!!!");
             }
-            System.out.println(temp);
-
         }
     }
 
     /**
-     * For Test
-     * 校验双链表的反转
+     * For Test 校验数组反转的正确性
      */
-    public static void checkReverse () {
-        int testTimes = 1000;
-        int oneTimeNums = 1000;
-        int range = 1000;
-        for (int i = 0; i < testTimes; i++) {
-            List<Integer> list = generateRandomList(oneTimeNums, range);
-            Node node = generateDoubleLinked(list);
-            Node reverseNode = reverse(node);
-            for (int j = list.size() - 1; j >= 0; j--) {
-                // 这里是用来判断 next 节点有没有连错
-                if (!reverseNode.getValue().equals(list.get(j))) {
-                    System.out.println("出错了！！！！");
-                }
-                // 这里是用来按断 previous 节点有没有连错
-                if (j != list.size() - 1) {
-                    if (!reverseNode.getPrevious().getValue().equals(list.get(j + 1))) {
-                        System.out.println("出错了！！！！");
-                    }
-                }
-                reverseNode = reverseNode.getNext();
+    private static boolean checkReverse (List<Integer> origin, Node head) {
+        Node end = null;
+        for (int i = origin.size() - 1; i >= 0; i--) {
+            if (!origin.get(i).equals(head.getValue())) {
+                return false;
             }
-
+            end = head;
+            head = head.getNext();
         }
+
+        for (int i = 0; i < origin.size(); i++) {
+            if (!origin.get(i).equals(end.getValue())) {
+                return false;
+            }
+            end = end.getPrevious();
+        }
+        return true;
     }
 
     /**
-     * For Test
-     * 将 list 转换成一个双链表结构
-     * @param list
-     * @return
+     * For Test 校验数组删除指定值的正确性
      */
-    private static Node generateDoubleLinked (List<Integer> list) {
-        Node head = new Node(list.get(0));
+    private static boolean checkDelete (List<Integer> origin, Node head) {
+        Node end = null;
+        for (int i = 0; i <origin.size(); i++) {
+            if (!origin.get(i).equals(head.getValue())) {
+                return false;
+            }
+            end = head;
+            head = head.getNext();
+        }
+
+        for (int i = origin.size() - 1; i >= 0; i--) {
+            if (!origin.get(i).equals(end.getValue())) {
+                return false;
+            }
+            end = end.getPrevious();
+        }
+        return true;
+    }
+
+    /**
+     * For Test 生成一个不超过 size 长度的双链表
+     */
+    private static Node generateDoubleLinked (int size, int range) {
+        int len = (int) (Math.random() * size) + 1;
+        if (len == 0) {
+            return null;
+        }
+        size--;
+        Node head = new Node((int) (Math.random() * range) + 1);
         Node pre = head;
-        for (int i = 0; i < list.size(); i++) {
-            Node current = new Node(list.get(i));
+        while (size != 0) {
+            Node current = new Node((int) (Math.random() * range) + 1);
             pre.setNext(current);
             current.setPrevious(pre);
             pre = current;
+            size--;
         }
         return head;
     }
 
     /**
-     * For Test
-     * 生成一个随机list 集合
-     * @param size 集合的大小
-     * @param range 数据的范围
-     * @return 一个随机集合
+     * For Test 获取 双链表的顺序
      */
-    private static List<Integer> generateRandomList (int size, int range) {
+    private static List<Integer> getDoubleLinkedOriginOrder (Node head) {
         List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            list.add((int) (Math.random() * range) + 1);
+        while (head != null) {
+            list.add((Integer)head.getValue());
+            head = head.getNext();
         }
         return list;
-    }
-
-    /**
-     * 集合删除指定的值
-     * @param old 旧的数组
-     * @param value 需要删除的值
-     * @return 删除指定值后的数组
-     */
-    private static List<Integer> listDeleteValue (List<Integer> old, Integer value) {
-        List<Integer> newList = new ArrayList<>();
-        for (int i = 0; i < old.size(); i++) {
-            if (!value.equals(old.get(i))) {
-                newList.add(old.get(i));
-            }
-        }
-        return newList;
     }
 }
