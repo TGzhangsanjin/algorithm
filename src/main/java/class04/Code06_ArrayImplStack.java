@@ -9,7 +9,7 @@ import java.util.Stack;
  * @Company jzb
  * @Version 1.0.0
  */
-public class Code07_ArrayImplStack {
+public class Code06_ArrayImplStack {
 
     public static class MyStack<T> {
         

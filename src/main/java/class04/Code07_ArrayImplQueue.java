@@ -10,7 +10,7 @@ import java.util.Queue;
  * @Company jzb
  * @Version 1.0.0
  */
-public class Code08_ArrayImplQueue {
+public class Code07_ArrayImplQueue {
 
     public static class MyQueue<T> {
 
