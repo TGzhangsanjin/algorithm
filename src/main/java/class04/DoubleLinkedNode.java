@@ -92,27 +92,30 @@ public class DoubleLinkedNode {
         while (current != null) {
             if (current.getValue().equals(value)) {
                 pre.setNext(current.getNext());
+                if (current.getNext() != null) {
+                    current.getNext().setPrevious(pre);
+                }
             } else {
                 pre = current;
             }
-            current =current.getNext();
+            current = current.getNext();
         }
         return head;
     }
 
     public static void main(String[] args) {
-        int testTimes = 10;
-        int oneTestNum = 5;
-        int range = 10;
+        int testTimes = 1000;
+        int oneTestNum = 1000;
+        int range = 1000;
         for (int i = 0; i < testTimes; i++) {
 
-//            Node node01 = generateDoubleLinked(oneTestNum, range);
-//            List<Integer> list01 = getDoubleLinkedOriginOrder(node01);
+            Node node01 = generateDoubleLinked(oneTestNum, range);
+            List<Integer> list01 = getDoubleLinkedOriginOrder(node01);
             // 讲道理这里的 node1 在执行完上一行后应该变成 null 的，为什么node1 指向的对象却不会变？？？
-//            node01 = reverse(node01);
-//            if (!checkReverse(list01, node01)) {
-//                System.out.printf("Reverse Opps!!!!");
-//            }
+            node01 = reverse(node01);
+            if (!checkReverse(list01, node01)) {
+                System.out.printf("Reverse Opps!!!!");
+            }
 
             int deleteValue = (int) (Math.random() * range) + 1;
             Node node02 = generateDoubleLinked(oneTestNum, range);
