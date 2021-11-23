@@ -56,6 +56,7 @@ public class Code12_HashMapAndSortedMap {
         Integer b = 19000000;
         // 使用 == 是按照引用传递的
         // 基础类型比如Integer、Double、String 等在hash表中的key是按照值传递的
+        // 非基础类型，则按照引用传递
         System.out.println(a == b);
 
         test.put(a, "我是3");
