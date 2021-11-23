@@ -1,7 +1,5 @@
 package class04;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 
 /**
@@ -13,7 +11,7 @@ import java.util.Stack;
  *      2. push时，正常往dataStack压入数据，同时比较 minStack 栈顶的数据a与压入的数据b，谁小就往minStack中压入谁
  *      3. pop时，正常从 dataStack中弹出数据，同时丢掉 minStack中栈顶的一个数据
  *
- * ps: 其实我直接在 MyStack08 中增加一个变量 min， 直接维护这个最小值就可以了
+ * ps: 单纯的用一个最小值是没法维护的
  */
 public class Code08_GetMinFromStack {
 
@@ -29,8 +27,12 @@ public class Code08_GetMinFromStack {
         }
 
         public void push (Integer data) {
+            if (isEmpty()) {
+                minStack.push(data);
+            } else {
+                minStack.push(Math.min(minStack.peek(), data));
+            }
             dataStack.push(data);
-            minStack.push(Math.min(minStack.peek(), data));
         }
 
         public Integer pop () {
@@ -63,12 +65,61 @@ public class Code08_GetMinFromStack {
         int range = 1000;
         for (int i = 0; i < testTimes; i++) {
             MyStack08 myStack = new MyStack08();
-            List<Integer> list = new ArrayList<>();
-//            int nums = (int)(Math)
-//            if (myStack.isEmpty()) {
-//                myStack
-//            }
+            Stack<Integer> stack = new Stack<>();
+            for (int j = 0; j < oneTimeNums; j++) {
+                int nums = (int)(Math.random() * range) + 1;
+                if (myStack.isEmpty()) {
+                    myStack.push(nums);
+                    stack.push(nums);
+                } else {
+                    if (Math.random() < 0.5) {
+                        myStack.push(nums);
+                        stack.push(nums);
+                    } else {
+                        if (!isEqual(myStack.pop(), stack.pop())) {
+                            System.out.println("Opps!!!");
+                        }
+                    }
+                    if (!isEqual(myStack.getMin(), findMinInStack(stack))) {
+                        System.out.println("Opps2222222!!!  myStack.getMin()===" + myStack.getMin());
+                    }
+                }
+
+            }
         }
+    }
+
+    /**
+     * ForTest
+     */
+    public static Integer findMinInStack (Stack<Integer> stack) {
+        if (stack.isEmpty()) {
+            return null;
+        }
+        Stack<Integer> copyStack = new Stack<>();
+        int min = Integer.MAX_VALUE;
+        while (!stack.isEmpty()) {
+            min = Math.min(min, stack.peek());
+            copyStack.push(stack.pop());
+        }
+        while (!copyStack.isEmpty()) {
+            stack.push(copyStack.pop());
+        }
+        return min;
+    }
+
+
+    public static boolean isEqual (Integer o1, Integer o2) {
+        if (o1 == null && o2 == null) {
+            return true;
+        }
+        if (o1 == null && o2 != null) {
+            return false;
+        }
+        if (o1 != null && o2 == null) {
+            return false;
+        }
+        return o1.equals(o2);
     }
 
 
