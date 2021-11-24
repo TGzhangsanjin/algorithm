@@ -22,4 +22,29 @@ public class ArrayUtil {
         }
         return array;
     }
+
+    /**
+     * 交换数组 array 中 a和b位置上的两个数进行交换
+     * @param array 数组
+     */
+    public static void swapTwoNum (int[] array, int a, int b) {
+        if (a == b || array[a] == array[b]) {
+            return;
+        }
+        array[a] = array[a] ^ array[b];
+        array[b] = array[a] ^ array[b];
+        array[a] = array[a] ^ array[b];
+    }
+
+    /**
+     * 复制一个数组
+     * @param array 数组
+     */
+    public static int[] copyArray (int[] array) {
+        int[] copyArray = new int[array.length];
+        for (int i = 0; i < copyArray.length; i++) {
+            copyArray[i] = array[i];
+        }
+        return copyArray;
+    }
 }
