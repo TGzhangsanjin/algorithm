@@ -49,7 +49,6 @@ public class Code03_DutchFlag02 {
         for (int i = 0; i < testTimes; i++) {
             int m = (int) (Math.random() * range) + 1;
             int[] array = ArrayUtil.generateRandomArray(oneTimeNums, range);
-            int[] copyArray = ArrayUtil.copyArray(array);
             // 数组中等于 m 的个数
             int equalNum = 0;
             // 数组中小于 m 的个数
