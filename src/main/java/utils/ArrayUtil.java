@@ -24,6 +24,20 @@ public class ArrayUtil {
     }
 
     /**
+     * 生成一个随机数组，数组大小时 size，，数组中每个数的范围区间是 [-range, range]
+     * @param size 数组大小
+     * @param range 区间
+     * @return 随机数组
+     */
+    public static long[] generateRandomArray02 (int size, int range) {
+        long[] array = new long[size];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = ((int) (Math.random() * range) + 1) - ((int) (Math.random() * range) + 1);
+        }
+        return array;
+    }
+
+    /**
      * 交换数组 array 中 a和b位置上的两个数进行交换
      * @param array 数组
      */
@@ -42,6 +56,19 @@ public class ArrayUtil {
      */
     public static int[] copyArray (int[] array) {
         int[] copyArray = new int[array.length];
+        for (int i = 0; i < copyArray.length; i++) {
+            copyArray[i] = array[i];
+        }
+        return copyArray;
+    }
+
+
+    /**
+     * 复制一个数组
+     * @param array 数组
+     */
+    public static long[] copyArray (long[] array) {
+        long[] copyArray = new long[array.length];
         for (int i = 0; i < copyArray.length; i++) {
             copyArray[i] = array[i];
         }
