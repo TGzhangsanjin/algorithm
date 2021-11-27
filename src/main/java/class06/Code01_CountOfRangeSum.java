@@ -105,9 +105,6 @@ public class Code01_CountOfRangeSum {
                 upper = lower ^ upper;
                 lower = lower ^ upper;
             }
-            if (lower == upper) {
-                upper++;
-            }
             int[] array01 = ArrayUtil.generateRandomArray(oneTimeNums, range);
             int[] array02 = ArrayUtil.copyArray(array01);
             if (countRangeSum(array02, lower, upper) != test02(array01, lower, upper)) {
