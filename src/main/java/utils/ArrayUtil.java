@@ -51,6 +51,19 @@ public class ArrayUtil {
     }
 
     /**
+     * 交换数组 array 中 a和b位置上的两个数进行交换
+     * @param array 数组
+     */
+    public static <T extends Object> void swapTwoNum (T[] array, int a, int b) {
+        if (a == b || array[a] == array[b]) {
+            return;
+        }
+        T temp = array[a];
+        array[a] = array[b];
+        array[b] = temp;
+    }
+
+    /**
      * 复制一个数组
      * @param array 数组
      */
