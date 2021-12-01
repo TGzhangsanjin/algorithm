@@ -103,7 +103,7 @@ public class MyMaxHeap {
         int range = 1000;
 
         for (int i = 0; i < testTimes; i++) {
-            // 大根堆
+            // 大根堆 PriorityQueue 不传比较器默认是小根堆
             PriorityQueue<Integer> priorityQueue = new PriorityQueue<>(new MyTestCompare());
             MyMaxHeap myMaxHeap = new MyMaxHeap(1000);
             for (int j = 0; j < oneTimeNums; j++) {
