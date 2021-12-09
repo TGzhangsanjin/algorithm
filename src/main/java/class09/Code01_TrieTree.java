@@ -111,6 +111,7 @@ public class Code01_TrieTree {
             for (int i = 0; i < chars.length; i++) {
                 int index = chars[i] - 'a';
                 if (--current.next[index].pass == 0) {
+                    // 这个直接设置为空的目的是为了防止内存泄漏的问题，如果不设置为空，Trie中就可能会出现很多 pass 和 end 都为 0的数据
                     current.next[index] = null;
                     return;
                 }
