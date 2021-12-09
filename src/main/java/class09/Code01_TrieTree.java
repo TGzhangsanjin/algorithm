@@ -205,13 +205,13 @@ public class Code01_TrieTree {
     }
 
     public static boolean isEqual (Integer o1, Integer o2) {
+        if (o1 == null && o2 == null) {
+            return true;
+        }
         if (o1 == 0 && o2 == null) {
             return true;
         }
         if (o1 == null && o2 == 1) {
-            return true;
-        }
-        if (o1 == null && o2 == null) {
             return true;
         }
         if (o1 == null && o2 != null) {
