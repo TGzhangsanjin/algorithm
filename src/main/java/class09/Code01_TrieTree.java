@@ -1,7 +1,5 @@
 package class09;
 
-import com.sun.deploy.util.StringUtils;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,6 +44,7 @@ public class Code01_TrieTree {
                 return;
             }
             char[] chars = word.toCharArray();
+            head.pass++;
             TrieNode current = head;
             for (int i = 0; i < chars.length; i++) {
                 int index = chars[i] - 'a';
@@ -99,9 +98,32 @@ public class Code01_TrieTree {
         }
 
         /**
-         * 删除给定字符串, 需要考虑word出现多次的情况
+         * 删除给定字符串, 有多个只会删除一个
          */
         public void delete (String word) {
+            if (search(word) < 1) {
+                // 先判断保证肯定有，所以后面的循环就不用考虑出现 null 的情况
+                return;
+            }
+            char[] chars = word.toCharArray();
+            TrieNode current = head;
+            current.pass--;
+            for (int i = 0; i < chars.length; i++) {
+                int index = chars[i] - 'a';
+                if (--current.next[index].pass == 0) {
+                    current.next[index] = null;
+                    return;
+                }
+                current = current.next[index];
+            }
+            current.end--;
+        }
+
+        /**
+         * 删除给定字符串, 有多个也全部删除
+         *
+         */
+        public void deleteAll (String word) {
             int times = search(word);
             if (times < 1) {
                 // 先判断保证肯定有，所以后面的循环就不用考虑出现 null 的情况
@@ -115,32 +137,56 @@ public class Code01_TrieTree {
                 current.next[index].pass -= times;
                 if (current.next[index].pass == 0) {
                     current.next[index] = null;
-                    break;
+                    return;
                 }
                 current = current.next[index];
             }
+            current.end -= times;
         }
     }
 
     public static void main(String[] args) {
-        int testTimes = 10000;
-        int maxLength = 100;
+        int testTimes = 1000;
+        int oneTimeNums = 1000;
+        int maxLength = 10;
         for (int i = 0; i < testTimes; i++) {
-            String word = generateString(maxLength);
             Map<String, Integer> map = new HashMap<>();
             Trie trie = new Trie();
-            if (Math.random() < 0.5) {
-                trie.insert(word);
-                map.merge(word, 1, Integer::sum);
-            } else {
-                trie.delete(word);
-                if (map.get(word) != null && map.get(word) > 1) {
-                    map.put(word, map.get(word) - 1);
+
+            for (int j = 0; j < oneTimeNums; j++) {
+                String word = generateString(maxLength);
+                double random = Math.random();
+                if (random < 0.5) {
+//                    System.out.println("插入前trie中的： " + word + "====" + trie.search(word));
+//                    System.out.println("插入前map中的： " + word + "====" + map.get(word));
+                    trie.insert(word);
+                    map.putIfAbsent(word, 0);
+                    map.put(word, map.get(word) + 1);
+//                    System.out.println("插入后trie中的： " + word + "====" + trie.search(word));
+//                    System.out.println("插入后map中的： " + word + "====" + map.get(word));
+//                    System.out.println("======================");
+                } else {
+//                    System.out.println("删除前trie中的： " + word + "====" + trie.search(word));
+//                    System.out.println("删除前map中的： " + word + "====" + map.get(word));
+                    trie.delete(word);
+                    if (map.get(word) != null && map.get(word) > 1) {
+                        map.put(word, map.get(word) - 1);
+                    } else if(map.get(word) != null && map.get(word) == 1){
+                        map.remove(word);
+                    }
+//                    System.out.println("删除后trie中的： " + word + "====" + trie.search(word));
+//                    System.out.println("删除后map中的： " + word + "====" + map.get(word));
+//                    System.out.println("======================");
+                }
+                Integer ans01 = trie.search(word);
+                Integer ans02 = map.get(word);
+                if (!isEqual(ans01, ans02)) {
+                    System.out.println("Opps!!!!");
+                    break;
                 }
             }
-            if (!isEqual(trie.search(word), map.get(word))) {
-                System.out.println("Opps!!!!");
-            }
+
+
         }
     }
 
