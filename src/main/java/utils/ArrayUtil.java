@@ -52,6 +52,22 @@ public class ArrayUtil {
     }
 
     /**
+     * 生成一个随机数组，数组大小是[sizeMin, sizeMax]，，数组中每个数的范围区间是 [1, range]
+     * @param sizeMin 数组的最小长度
+     * @param sizeMax 数组的最大长度
+     * @param range 区间
+     * @return 随机数组
+     */
+    public static int[] generateRandomArray (int sizeMin, int sizeMax, int range) {
+        int size = sizeMin + (int) (Math.random() * (sizeMax - sizeMin + 1));
+        int[] array = new int[size];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = ((int) (Math.random() * range) + 1);
+        }
+        return array;
+    }
+
+    /**
      * 交换数组 array 中 a和b位置上的两个数进行交换
      * @param array 数组
      */
