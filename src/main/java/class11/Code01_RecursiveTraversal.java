@@ -12,4 +12,58 @@ package class11;
  * @Version 1.0.0
  */
 public class Code01_RecursiveTraversal {
+
+    /**
+     *   *****递归序******
+     *
+     * 遍历二叉树的时候，每个节点 x 都会经过自己三次
+     *  1. 来到 x 自己一次
+     *  2. 从左子树回到自己这里 又一次
+     *  3. 从右子树回到自己这里，又一次
+     *
+     *  所以决定先序、中序还是后续的关键是，打印语句在这三次中的哪一次打印
+     */
+    public static void f (BinaryNode<String> head) {
+
+        // 1 打印放到这里 -> 先序
+        f(head.getLeft());
+        // 2 打印放到这里 -> 中序
+        f(head.getRight());
+        // 3 打印放到这里 -> 后序
+    }
+
+    /**
+     * 二叉树的先序遍历 - 递归实现
+     */
+    public static void pre (BinaryNode<String> head) {
+        if (head == null) {
+            return;
+        }
+        System.out.println(head.getValue());
+        pre(head.getLeft());
+        pre(head.getRight());
+    }
+
+    /**
+     * 二叉树的中序遍历 - 递归实现
+     */
+    public static void in(BinaryNode<String> head) {
+        if (head == null) {
+            return;
+        }
+        in(head.getLeft());
+        System.out.println(head.getValue());
+        in(head.getRight());
+    }
+
+    /**
+     * 二叉树的后序遍历 - 递归实现
+     */
+    public static void pos(BinaryNode<String> head) {
+        if (head == null) {
+            pos(head.getLeft());
+            pos(head.getRight());
+            System.out.println(head.getValue());
+        }
+    }
 }
