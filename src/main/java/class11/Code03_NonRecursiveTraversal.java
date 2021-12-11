@@ -4,6 +4,8 @@ import java.util.Stack;
 
 /**
  * 二叉树的非递归遍历实现
+ *
+ * ps: 上线的代码是不能出现递归的，因为递归使用了系统栈，而系统栈时有限的
  * @Author 张三金
  * @Date 2021/12/11 0011 10:30
  * @Company jzb
@@ -87,6 +89,43 @@ public class Code03_NonRecursiveTraversal {
         while (!stack02.isEmpty()) {
             System.out.println(stack02.pop().getValue() + " ");
         }
+    }
+
+    /**
+     * 中序遍历 -- 非递归实现
+     * 思路：
+     *  （1）对于每一个节点 x ，x 压入栈中，先将 x 节点的所有左边界的节点全部压入栈中，一直到左孩子为空
+     *  （2）第一个步骤中当为空的时候，则开始从栈中弹出节点并打印，打印好的同时去处理这个弹出节点的右孩子，这个时候这个右孩子就变成了 x， 然后回到步骤(1)
+     *   (3) 一直到
+     *
+     *  ps: 中序遍历的思想就是，整个二叉树是可以被所有左边界给分解掉的，
+     */
+    public static void in (BinaryNode<String> head) {
+        if (head == null) {
+            return;
+        }
+        Stack<BinaryNode<String>> stack = new Stack<>();
+        // 这个 !stack.isEmpty() 用来处理第一个节点或者头结点进入循环用的，
+        while (!stack.isEmpty() || head != null) {
+            if (head != null) {
+                // 一直将左边界压入栈中
+                stack.push(head);
+                head = head.getLeft();
+            } else {
+                // 左边界压完了，开始先弹出左边界，并打印
+                head = stack.pop();
+                System.out.println(head.getValue() + " ");
+                // 弹出左边界后再去处理右子树
+                head = head.getRight();
+            }
+        }
+    }
+
+    /**
+     * 后序遍历（如何只使用一个栈实现后序遍历） -- 非递归实现
+     * @TODO 很难
+     */
+    public static void pos02 (BinaryNode<String> head) {
 
     }
 }
