@@ -61,9 +61,10 @@ public class Code01_RecursiveTraversal {
      */
     public static void pos(BinaryNode<String> head) {
         if (head == null) {
-            pos(head.getLeft());
-            pos(head.getRight());
-            System.out.println(head.getValue());
+            return;
         }
+        pos(head.getLeft());
+        pos(head.getRight());
+        System.out.println(head.getValue());
     }
 }
