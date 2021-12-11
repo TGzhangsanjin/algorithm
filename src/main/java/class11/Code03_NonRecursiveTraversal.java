@@ -106,6 +106,7 @@ public class Code03_NonRecursiveTraversal {
         }
         Stack<BinaryNode<String>> stack = new Stack<>();
         // 这个 !stack.isEmpty() 用来处理第一个节点或者头结点进入循环用的，
+        // 如果栈为空，head 也为空，那么循环就停了
         while (!stack.isEmpty() || head != null) {
             if (head != null) {
                 // 一直将左边界压入栈中
