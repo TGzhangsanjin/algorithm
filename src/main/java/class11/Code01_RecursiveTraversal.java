@@ -23,7 +23,7 @@ public class Code01_RecursiveTraversal {
      *
      *  所以决定先序、中序还是后续的关键是，打印语句在这三次中的哪一次打印
      */
-    public static void f (BinaryNode<String> head) {
+    public static void f (BinaryNode<Integer> head) {
 
         // 1 打印放到这里 -> 先序
         f(head.getLeft());
@@ -35,11 +35,11 @@ public class Code01_RecursiveTraversal {
     /**
      * 二叉树的先序遍历 - 递归实现
      */
-    public static void pre (BinaryNode<String> head) {
+    public static void pre (BinaryNode<Integer> head) {
         if (head == null) {
             return;
         }
-        System.out.println(head.getValue());
+        System.out.print(head.getValue() + " -> ");
         pre(head.getLeft());
         pre(head.getRight());
     }
@@ -47,24 +47,46 @@ public class Code01_RecursiveTraversal {
     /**
      * 二叉树的中序遍历 - 递归实现
      */
-    public static void in(BinaryNode<String> head) {
+    public static void in(BinaryNode<Integer> head) {
         if (head == null) {
             return;
         }
         in(head.getLeft());
-        System.out.println(head.getValue());
+        System.out.print(head.getValue() + " -> ");
         in(head.getRight());
     }
 
     /**
      * 二叉树的后序遍历 - 递归实现
      */
-    public static void pos(BinaryNode<String> head) {
+    public static void pos(BinaryNode<Integer> head) {
         if (head == null) {
             return;
         }
         pos(head.getLeft());
         pos(head.getRight());
-        System.out.println(head.getValue());
+        System.out.print(head.getValue() + " -> ");
+    }
+
+    public static void main(String[] args) {
+        BinaryNode<Integer> node = new BinaryNode<>(1);
+        node.setLeft(new BinaryNode<>(2));
+        node.getLeft().setLeft(new BinaryNode<>(4));
+        node.getLeft().setRight(new BinaryNode<>(5));
+
+        node.setRight(new BinaryNode<>(3));
+        node.getRight().setLeft(new BinaryNode<>(6));
+        node.getRight().getLeft().setLeft(new BinaryNode<>(7));
+        node.getRight().setRight(new BinaryNode<>(8));
+
+        // 先序遍历  1 -> 2 -> 4 -> 5 -> 3 -> 6 -> 7 -> 8
+        pre(node);
+        System.out.println("===============");
+        // 中序遍历 4 -> 2 -> 5 -> 1 -> 7 -> 6 -> 3 -> 8
+        in(node);
+        System.out.println("===============");
+        // 后序遍历 4 -> 5 -> 2 -> 7 -> 6 -> 8 -> 3 -> 1
+        pos(node);
+
     }
 }

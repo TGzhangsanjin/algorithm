@@ -24,6 +24,10 @@ public class BinaryNode<T> {
      */
     private BinaryNode<T> right;
 
+    public BinaryNode (T data) {
+        this.value = data;
+    }
+
     public T getValue() {
         return value;
     }
