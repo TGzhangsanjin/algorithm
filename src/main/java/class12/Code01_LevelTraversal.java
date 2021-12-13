@@ -33,11 +33,34 @@ public class Code01_LevelTraversal {
             if (current.getRight() != null) {
                 queue.add(current.getRight());
             }
-            System.out.print(current.getValue() + " -< ");
+            System.out.print(current.getValue() + " -> ");
         }
     }
 
     public static void main(String[] args) {
+        BinaryNode<Integer> node1 = new BinaryNode<>(1);
+        node1.setLeft(new BinaryNode<>(2));
+        node1.getLeft().setLeft(new BinaryNode<>(4));
+        node1.getLeft().setRight(new BinaryNode<>(5));
 
+        node1.setRight(new BinaryNode<>(3));
+        node1.getRight().setLeft(new BinaryNode<>(6));
+        node1.getRight().getLeft().setLeft(new BinaryNode<>(7));
+        node1.getRight().setRight(new BinaryNode<>(8));
+
+        BinaryNode<Integer> node2 = new BinaryNode<>(1);
+        node2.setLeft(new BinaryNode<>(2));
+        node2.getLeft().setLeft(new BinaryNode<>(4));
+        node2.getLeft().setRight(new BinaryNode<>(5));
+
+        node2.setRight(new BinaryNode<>(3));
+        node2.getRight().setLeft(new BinaryNode<>(6));
+        node2.getRight().setRight(new BinaryNode<>(7));
+
+        // 宽度优先遍历  1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 8 > 7
+        levelTraversal(node1);
+        System.out.println("============");
+        // 宽度优先遍历  1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
+        levelTraversal(node2);
     }
 }
