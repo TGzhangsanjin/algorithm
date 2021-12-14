@@ -17,7 +17,7 @@ import java.util.Stack;
 public class Code02_TreeSerialize {
 
     /**
-     *  序列化 -- 先序
+     *  先序遍历 - 序列化
      *  使用逗号 "," 进行分隔
      */
     public static String preSerialize (BinaryNode<Integer> head) {
@@ -49,7 +49,7 @@ public class Code02_TreeSerialize {
     }
 
     /**
-     *  序列化 -- 后序
+     * 后序遍历 - 序列化
      */
     public static String posSerialize (BinaryNode<Integer> head) {
         if (head == null) {
@@ -78,6 +78,13 @@ public class Code02_TreeSerialize {
             }
         }
         return str.substring(0, str.length() - 1);
+    }
+
+    /**
+     * 按层遍历 - 序列化
+     */
+    public static String level () {
+
     }
 
     public static void main(String[] args) {
