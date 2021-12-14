@@ -6,7 +6,7 @@ import com.sun.deploy.util.StringUtils;
 import java.util.Stack;
 
 /**
- * 二叉树的额序列化
+ * 二叉树的序列化
  *  只有先序和后序的序列化，，二叉树的中序序列化是不存在的，因为有歧义
  * 序列化的过程实际就是将一棵二叉树转换成 字符串或者数组的过程，如果一个节点的孩子为空，也需要进行存储
  * @Author 张三金
@@ -17,7 +17,7 @@ import java.util.Stack;
 public class Code02_TreeSerialize {
 
     /**
-     *  先序遍历的方式进行序列化
+     *  序列化 -- 先序
      *  使用逗号 "," 进行分隔
      */
     public static String preSerialize (BinaryNode<Integer> head) {
@@ -48,6 +48,38 @@ public class Code02_TreeSerialize {
         return serializeString.substring(0, serializeString.length() - 1);
     }
 
+    /**
+     *  序列化 -- 后序
+     */
+    public static String posSerialize (BinaryNode<Integer> head) {
+        if (head == null) {
+            return null;
+        }
+        Stack<BinaryNode<Integer>> stack = new Stack<>();
+        Stack<BinaryNode<Integer>> outStack = new Stack<>();
+        stack.push(head);
+        while (!stack.isEmpty()) {
+            head = stack.pop();
+            outStack.push(head);
+            if (head == null) {
+                continue;
+            }
+            stack.push(head.getLeft());
+            stack.push(head.getRight());
+        }
+        String str = "";
+        while (!outStack.isEmpty()) {
+            //
+            if (outStack.peek() == null) {
+                str += "null,";
+                outStack.pop();
+            } else {
+                str += outStack.pop().getValue() + ",";
+            }
+        }
+        return str.substring(0, str.length() - 1);
+    }
+
     public static void main(String[] args) {
         BinaryNode<Integer> node1 = new BinaryNode<>(1);
         node1.setLeft(new BinaryNode<>(2));
@@ -62,5 +94,8 @@ public class Code02_TreeSerialize {
         // 先序序列化  1,2,4,null,null,5,null,null,3,6,7,null,null,bull,8,null,null
         System.out.println();
         System.out.println(preSerialize(node1));
+        // 后序序列化 null,null,4,null,null,5,2,null,null,7,null,6,null,null,8,3,1
+        System.out.println();
+        System.out.println(posSerialize(node1));
     }
 }
