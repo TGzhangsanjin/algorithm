@@ -3,6 +3,8 @@ package class12;
 import class11.BinaryNode;
 import com.sun.deploy.util.StringUtils;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -81,10 +83,26 @@ public class Code02_TreeSerialize {
     }
 
     /**
-     * 按层遍历 - 序列化
+     * 按层（宽度优先）遍历 - 序列化
      */
-    public static String level () {
-
+    public static String level (BinaryNode<Integer> head) {
+        if (head == null) {
+            return null;
+        }
+        Queue<BinaryNode<Integer>> queue = new LinkedList<>();
+        queue.add(head);
+        String str = "";
+        while (!queue.isEmpty()) {
+            head = queue.poll();
+            if (head == null) {
+                str += "null,";
+            } else {
+                str += head.getValue() + ",";
+                queue.add(head.getLeft());
+                queue.add(head.getRight());
+            }
+        }
+        return str.substring(0, str.length() - 1);
     }
 
     public static void main(String[] args) {
@@ -104,5 +122,8 @@ public class Code02_TreeSerialize {
         // 后序序列化 null,null,4,null,null,5,2,null,null,7,null,6,null,null,8,3,1
         System.out.println();
         System.out.println(posSerialize(node1));
+        // 按层序列化 1,2,3,4,5,6,8,null,null,null,null,7,null,null,null,null,null
+        System.out.println();
+        System.out.println(level(node1));
     }
 }
