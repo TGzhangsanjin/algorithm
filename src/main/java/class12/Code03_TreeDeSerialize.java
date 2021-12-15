@@ -115,15 +115,62 @@ public class Code03_TreeDeSerialize {
     }
 
     public static void main(String[] args) {
-        BinaryNode<Integer> node = buildByPre("1,2,4,null,null,5,null,null,3,6,7,null,null,null,8,null,null");
-        System.out.println();
+        int testTimes = 1000;
+        int maxLevel = 100;
+        int maxValue = 1000;
+        for (int i = 0; i < testTimes; i++) {
+            BinaryNode<Integer> node = generateRandomBST(maxLevel, maxValue);
+            String preString = Code02_TreeSerialize.preSerialize(node);
+            String posString = Code02_TreeSerialize.posSerialize(node);
+            String levelString = Code02_TreeSerialize.level(node);
+
+            BinaryNode<Integer> preNode = buildByPre(preString);
+            BinaryNode<Integer> posNode = buildByPos(posString);
+            BinaryNode<Integer> levelNode = buildByLevel(levelString);
+
+            if (!isTheSameTree(preNode, posNode)) {
+                System.out.println("Opps!!!!");
+            }
+            if (!isTheSameTree(posNode, levelNode)) {
+                System.out.println("Opps!!!！");
+            }
+
+        }
 
 
-        node = buildByPos("null,null,4,null,null,5,2,null,null,7,null,6,null,null,8,3,1");
-        System.out.println();
+    }
 
-        node = buildByLevel("1,2,3,4,5,6,8,null,null,null,null,7,null,null,null,null,null");
-        System.out.println();
+    /**
+     * 随机生成层数不超过 maxLevel 的一棵二叉树
+     */
+    public static BinaryNode<Integer> generateRandomBST (int maxLevel, int maxValue) {
+        return generateRandomBSTDo(1, maxLevel, maxValue);
+    }
+
+    public static BinaryNode<Integer> generateRandomBSTDo(int level, int maxLevel, int maxValue) {
+        if (level > maxLevel || Math.random() < 0.5) {
+            return null;
+        }
+        BinaryNode<Integer> node = new BinaryNode<>((int) (Math.random() * maxValue));
+        node.setLeft(generateRandomBSTDo(level + 1, maxLevel, maxValue));
+        node.setRight(generateRandomBSTDo(level + 1, maxLevel, maxValue));
+        return node;
+    };
+
+    public static boolean isTheSameTree (BinaryNode<Integer> head1, BinaryNode<Integer> head2) {
+        if (head1 == null && head2 != null) {
+            return false;
+        }
+        if (head1 != null && head2 == null) {
+            return false;
+        }
+        if (head1 == null && head2 == null) {
+            return true;
+        }
+        if (!head1.getValue().equals(head2.getValue())) {
+            return false;
+        }
+        return isTheSameTree(head1.getLeft(), head2.getLeft()) && isTheSameTree(head1.getRight(), head2.getRight());
     }
 
 
