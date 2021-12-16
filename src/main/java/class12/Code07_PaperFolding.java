@@ -10,4 +10,31 @@ package class12;
  * @Version 1.0.0
  */
 public class Code07_PaperFolding {
+
+    /**
+     * 按层遍历打印所有节点的凹凸
+     * n ：表示这颗二叉树有多少层
+     * 思路：头节点（即第一个节点）时凹的，每个节点的左孩子都是凹的，右孩子是凸的
+     * @param n
+     */
+    public static void printAllFolds (int n) {
+        // 从第一个节点开始
+        process(1, n, true);
+    }
+
+    public static void process(int i, int n, boolean down) {
+        if (i > n) {
+            return;
+        }
+        // 当前节点的左孩子是凹的
+        process(i+1, n, true);
+        // 打印当前节点
+        System.out.println(down ? "凹":"凸");
+        // 当前节点的右孩子是凸的
+        process(i+1, n, false);
+    }
+
+    public static void main(String[] args) {
+        printAllFolds(100);
+    }
 }
