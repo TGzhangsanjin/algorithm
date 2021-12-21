@@ -11,7 +11,7 @@ import utils.ArrayUtil;
  * @Company jzb
  * @Version 1.0.0
  */
-public class Code02_CountSort {
+public class Code03_CountSort {
 
     // only for (0 ~ 200] value
     public static void countSort (int[] array) {

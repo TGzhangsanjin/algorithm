@@ -15,7 +15,7 @@ import java.util.Map;
  * @Company jzb
  * @Version 1.0.0
  */
-public class Code01_TrieTree {
+public class Code02_TrieTree {
 
     public static class TrieNode {
         public int pass;

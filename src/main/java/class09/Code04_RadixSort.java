@@ -27,7 +27,7 @@ import java.util.PriorityQueue;
  * @Company jzb
  * @Version 1.0.0
  */
-public class Code03_RadixSort {
+public class Code04_RadixSort {
 
     // 不使用容器的方式
     public static void radixSort (int[] array) {
