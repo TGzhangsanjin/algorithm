@@ -67,4 +67,42 @@ public class Code04_CopySpecialLink {
         }
         return map.get(head);
     }
+
+    public static Node copySpecialLink (Node head) {
+        if (head == null) {
+            return null;
+        }
+
+        // 第一步，原来的链表是 1 -> 2 -> 3 -> 4 -> 5 ..., 变成 1->1'->2->2'->3->3'->4->4'->5->5'....
+        Node current = head;
+        Node next = null;
+        while (current != null) {
+            next = current.next;
+            current.next = new Node(current.val);
+            current.next.next = next;
+            current = next;
+        }
+
+        // 第二步 设置好 1‘ 2’ 3‘ 4’ 5‘ 的 random指针
+        current = head;
+        while (current != null) {
+            next = current.next.next;
+            // 这一步很关键，新节点的 random指针，也就是 老节点的random指针的下一个节点
+            current.next.random = current.random != null ? current.random.next:null;
+            current = next;
+        }
+
+        // 第三步 分离新老节点
+        Node rsp = head.next;
+        Node copy = rsp;
+        current = head;
+        while (current != null) {
+            next = current.next.next;
+            current.next = next;
+            copy.next = next != null ? next.next : null;
+            current = next;
+            copy = current != null ? current.next: null;
+        }
+        return rsp;
+    }
 }
