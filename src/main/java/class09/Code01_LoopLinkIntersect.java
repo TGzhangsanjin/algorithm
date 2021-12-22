@@ -29,6 +29,25 @@ import class04.SingleNode;
 public class Code01_LoopLinkIntersect {
 
 
+    public static SingleNode<Integer> getIntersectNode (SingleNode<Integer> head01, SingleNode<Integer> head02) {
+        if (head01 == null || head02 == null) {
+            return null;
+        }
+        // 1. 获取两个链表的入环节点
+        SingleNode<Integer> loop01 = getLoopNode(head01);
+        SingleNode<Integer> loop02 = getLoopNode(head02);
+
+        if (loop01 == null && loop02 == null) {
+            // 2. 两个链表都没有环的情况
+            return noLoop(head01, head02);
+        } else if (loop01 != null && loop02 != null) {
+            // 3. 两个链表都有环的情况
+            return bothLoop(head01, head02, loop01, loop02);
+        }
+        // 4. 其它情况链表都没有交点
+        return null;
+    }
+
     /**
      * head01 和 head02 都是无环链表，返判断两个链表是否相交，如果相交则返回相交的第一个节点
      */
@@ -40,11 +59,11 @@ public class Code01_LoopLinkIntersect {
         int length02 = 1;
         SingleNode<Integer> current01 = head01;
         SingleNode<Integer> current02 = head02;
-        if (current01.getNext() != null) {
+        while (current01.getNext() != null) {
             length01++;
             current01 = current01.getNext();
         }
-        if (current02.getNext() != null) {
+        while (current02.getNext() != null) {
             length02++;
             current02 = current02.getNext();
         }
@@ -72,9 +91,62 @@ public class Code01_LoopLinkIntersect {
 
 
     /**
+     * head01 和 head02 都有环则会进这个方法
+     */
+    public static SingleNode<Integer> bothLoop (SingleNode<Integer> head01, SingleNode<Integer> head02
+            , SingleNode<Integer> loop01, SingleNode<Integer> loop02) {
+        SingleNode<Integer> current01 = null;
+        SingleNode<Integer> current02 = null;
+        if (loop01 != loop02) {
+            // 有两个入环节点
+            // 遍历 loop01, 当loop01 回到自己的时候，如果没有遇到 loop02 则说明两个链表没有交点
+            current01 = loop01.getNext();
+            while (current01 != loop01) {
+                if (current01 == loop02) {
+                    return current01;
+                }
+                current01 = current01.getNext();
+            }
+            return null;
+        } else {
+            // 入环节点相同
+            int length01 = 1;
+            int length02 = 1;
+            current01 = head01;
+            current02 = head02;
+            // 长度只计算到入环节点，后面的节点不考虑了
+            while (current01.getNext() != loop01) {
+                length01++;
+                current01 = current01.getNext();
+            }
+            while (current02.getNext() != loop02) {
+                length02++;
+                current02 = current02.getNext();
+            }
+            // current01 指向更长的那个链表头结点
+            current01 = length01 > length02 ? head01:head02;
+            // current02 指向更短的那个链表头节点
+            current02 = length01 < length02 ? head01:head02;
+            int n = Math.abs(length01 - length02);
+            // 更长的链表先走
+            while (n > 0) {
+                current01 = current01.getNext();
+                n--;
+            }
+            while (current01 != current02) {
+                current01 = current01.getNext();
+                current02 = current02.getNext();
+            }
+            return current01;
+        }
+
+    }
+
+
+    /**
      *  如果 head 链表有环则返回入环节点，没有环则返回 null
      */
-    public SingleNode<Integer> getLoopNode(SingleNode<Integer> head) {
+    public static SingleNode<Integer> getLoopNode(SingleNode<Integer> head) {
         if (head == null || head.getNext() == null || head.getNext().getNext() == null) {
             return null;
         }
@@ -96,5 +168,53 @@ public class Code01_LoopLinkIntersect {
             fast = fast.getNext();
         }
         return slow;
+    }
+
+    public static void main(String[] args) {
+
+        /***************************都没有环的情况*******************/
+        // 1->2->3->4->5->6->7->null
+        SingleNode<Integer> head1 = new SingleNode<>(1);
+        head1.setNext(new SingleNode<>(2));
+        head1.getNext().setNext(new SingleNode<>(3));
+        head1.getNext().getNext().setNext(new SingleNode<>(4));
+        head1.getNext().getNext().getNext().setNext(new SingleNode<>(5));
+        head1.getNext().getNext().getNext().getNext().setNext(new SingleNode<>(6));
+        head1.getNext().getNext().getNext().getNext().getNext().setNext(new SingleNode<>(7));
+
+        // 0->9->8->6->7->null
+        SingleNode<Integer> head2 = new SingleNode<>(0);
+        head2.setNext(new SingleNode<>(9));
+        head2.getNext().setNext(new SingleNode<>(8));
+        head2.getNext().getNext().setNext(head1.getNext().getNext().getNext().getNext().getNext()); // 8->6
+        // 相交节点的值应该是 6
+        System.out.println(getIntersectNode(head1, head2).getValue());
+
+        /***************************都有环的情况*******************/
+        // 1->2->3->4->5->6->7->4...
+        head1 = new SingleNode<>(1);
+        head1.setNext(new SingleNode<>(2));
+        head1.getNext().setNext(new SingleNode<>(3));
+        head1.getNext().getNext().setNext(new SingleNode<>(4));
+        head1.getNext().getNext().getNext().setNext(new SingleNode<>(5));
+        head1.getNext().getNext().getNext().getNext().setNext(new SingleNode<>(6));
+        head1.getNext().getNext().getNext().getNext().getNext().setNext(new SingleNode<>(7));
+        head1.getNext().getNext().getNext().getNext().getNext().getNext().setNext(head1.getNext().getNext().getNext());; // 7->4
+
+        // 0->9->8->2...
+        head2 = new SingleNode<>(0);
+        head2.setNext(new SingleNode<>(9));
+        head2.getNext().setNext(new SingleNode<>(8));
+        head2.getNext().getNext().setNext(head1.getNext()); // 8->2
+        // 相交节点的值应该2
+        System.out.println(getIntersectNode(head1, head2).getValue());
+
+        // 0->9->8->6->4->5->6..
+        head2 = new SingleNode<>(0);
+        head2.setNext(new SingleNode<>(9));
+        head2.getNext().setNext(new SingleNode<>(8));
+        head2.getNext().getNext().setNext(head1.getNext().getNext().getNext().getNext().getNext()); // 8->6
+        // 相交节点的值应该 6 或者 4
+        System.out.println(getIntersectNode(head1, head2).getValue());
     }
 }
