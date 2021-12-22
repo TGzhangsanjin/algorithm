@@ -1,5 +1,8 @@
 package class10;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 测试链接 : https://leetcode.com/problems/copy-list-with-random-pointer/
  * 拷贝一个特殊的链表
@@ -23,7 +26,7 @@ public class Code04_CopySpecialLink {
         /**
          * 节点值
          */
-        int value;
+        int val;
 
         /**
          * 下一个节点
@@ -33,10 +36,35 @@ public class Code04_CopySpecialLink {
         /**
          * 随机指向的一个节点
          */
-        Node rand;
+        Node random;
 
         public Node (int data) {
-            value = data;
+            val = data;
         }
+    }
+
+    /**
+     * 使用Map 容器的方式
+     */
+    public static Node copyUserMap (Node head) {
+        if (head == null) {
+            return null;
+        }
+
+        // key: 老的链表节点  value: 新的链表节点
+        Map<Node, Node> map = new HashMap<>();
+        Node cur = head;
+        while (cur != null) {
+            map.put(cur, new Node(cur.val));
+            cur = cur.next;
+        }
+
+        cur = head;
+        while (cur != null) {
+            map.get(cur).next = map.get(cur.next);
+            map.get(cur).random = map.get(cur.random);
+            cur = cur.next;
+        }
+        return map.get(head);
     }
 }
