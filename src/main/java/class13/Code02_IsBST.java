@@ -53,6 +53,7 @@ public class Code02_IsBST {
 
     public static Info process (BinaryNode<Integer> node) {
         // 当为空时，不知道返回什么信息Info 的时候，就直接返回空，在后面的代码都要考虑为空的情况
+        // 同时这个也是递归的 base case
         if (node == null) {
             return null;
         }
@@ -72,12 +73,14 @@ public class Code02_IsBST {
             min = Math.min(min, rightInfo.min);
         }
         // 下面就是去分析各种情况, 这里就是排除 node 作为头节点部位BST的所以情况
+        // 注意这下面两种情况要同时满足才行
         if (lefInfo != null) {
             // 左子树不是BST或者左子树的最大值大于等于当前值，那么node作为头节点的子树自然也不是BST
             if (!lefInfo.isBST || lefInfo.max >= node.getValue()) {
                 isBST = false;
             }
-        } else if (rightInfo != null) {
+        }
+        if (rightInfo != null) {
             // 右子树不是BST或者右子树的最小值小于等于当前值，那么node作为头节点的子树自然也不是BST
             if (!rightInfo.isBST || rightInfo.min <= node.getValue()) {
                 isBST = false;
@@ -98,15 +101,10 @@ public class Code02_IsBST {
             if (isBST != testIsBST) {
                 System.out.println("OPPS");
                 System.out.println("isBST == " + isBST + ",  testIsBST == " + testIsBST);
-//                Code03_PrintBinaryTree.printTree(head);
+                Code03_PrintBinaryTree.printTree(head);
+                System.out.println();
             }
         }
-//        BinaryNode<Integer> head = new BinaryNode<>(7099);
-//        head.setRight(new BinaryNode<>(7168));
-//        head.getRight().setLeft(new BinaryNode<>(3398));
-//        head.getRight().setRight(new BinaryNode<>(1079));
-//
-//        System.out.println(isBST01(head));
     }
 
     /**

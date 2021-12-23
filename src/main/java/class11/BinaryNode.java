@@ -1,5 +1,7 @@
 package class11;
 
+import class04.SingleNode;
+
 /**
  * 二叉树节点
  * @Author 张三金
@@ -50,5 +52,22 @@ public class BinaryNode<T> {
 
     public void setRight(BinaryNode<T> right) {
         this.right = right;
+    }
+
+    /**
+     * 拷贝二叉树
+     */
+    public BinaryNode<T> copyNode () {
+        return copyNodeProcess(this);
+    }
+
+    public BinaryNode<T> copyNodeProcess (BinaryNode<T> node) {
+        if (node == null) {
+            return null;
+        }
+        BinaryNode<T> copyNode = new BinaryNode<>(node.getValue());
+        copyNode.setLeft(copyNodeProcess(node.getLeft()));
+        copyNode.setRight(copyNodeProcess(node.getRight()));
+        return copyNode;
     }
 }
