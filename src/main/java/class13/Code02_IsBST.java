@@ -17,7 +17,7 @@ package class13;
  *      c. x作为头结点的子树的最小值 min
  *
  */
-public class Code01_IsBST {
+public class Code02_IsBST {
 
     private static class Node {
         int value;
