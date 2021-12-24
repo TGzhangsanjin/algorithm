@@ -3,7 +3,6 @@ package class13;
 import class11.BinaryNode;
 import class12.Code03_PrintBinaryTree;
 
-import java.beans.BeanInfo;
 import java.util.ArrayList;
 
 /**
