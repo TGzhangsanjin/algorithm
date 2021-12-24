@@ -1,13 +1,9 @@
 package class13;
 
-import class04.SingleNode;
 import class11.BinaryNode;
 import class12.Code03_PrintBinaryTree;
 
-import java.lang.reflect.Array;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 判断一棵二叉树是否是搜索二叉树 BST (Binary Search Tree)
