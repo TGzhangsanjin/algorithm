@@ -105,6 +105,21 @@ public class ArrayUtil {
         return copyArray;
     }
 
+    /**
+     * 复制一个数组
+     * @param array 数组
+     */
+    public static String[] copyArray (String[] array) {
+        if (array == null || array.length < 1) {
+            return null;
+        }
+        String[] copyArray = new String[array.length];
+        for (int i = 0; i < copyArray.length; i++) {
+            copyArray[i] = array[i];
+        }
+        return copyArray;
+    }
+
 
     /**
      * 复制一个数组
