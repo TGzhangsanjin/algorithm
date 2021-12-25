@@ -23,7 +23,7 @@ import java.util.ArrayList;
  *      (3) max 最大值
  *      (4) min 最小值
  */
-public class Code06_MaxBST {
+public class Code06_MaxBSTCount {
 
     public static int maxBST (BinaryNode<Integer> head) {
         if (head == null) {
