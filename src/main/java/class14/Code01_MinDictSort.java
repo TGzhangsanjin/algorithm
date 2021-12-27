@@ -29,7 +29,7 @@ import java.util.TreeSet;
  * @Company jzb
  * @Version 1.0.0
  */
-public class Code02_MinDictSort {
+public class Code01_MinDictSort {
 
     public static String minDictSort (String[] array) {
         if (array == null) {
