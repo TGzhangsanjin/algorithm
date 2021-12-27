@@ -40,7 +40,7 @@ public class Code05_FriendCircle {
         // size[i] 表示i代表的集合大小，即朋友圈个数
         // 只有i是代表节点时，size[i] 才有意义
         public int[] size;
-        // 辅助数组，在找祖先的过程中，用来代替栈的
+        // 辅助数组，在找祖先的过程中，用来代替栈的， 因为数组的效率是比栈要更高的
         public int[] help;
         // 代表节点的个数，即朋友圈的个数
         public int sets;
