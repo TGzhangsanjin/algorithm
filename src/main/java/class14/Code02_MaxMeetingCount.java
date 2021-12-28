@@ -50,4 +50,35 @@ public class Code02_MaxMeetingCount {
         Project[] projects = {new Project(1, 99), new Project(99, 100), new Project(100, 200)};
         System.out.println(maxMeetingCount(projects));
     }
+
+
+    public static int masMeetingCountTest (Project[] projects) {
+
+    }
+
+    // projects: 剩余的项目
+    // done: 已经完成的项目个数
+    // timeLine: 当前来到的时间点
+    // 返回当前能够安排的最多项目宣讲个数
+    public static int process (Project[] projects, int done, int timeLine) {
+
+        int ans = 0;
+        for (int i = 0; i < projects.length; i++) {
+            if (projects[i].start >= timeLine) {
+                ans +=
+            }
+        }
+    }
+
+    // 去掉 projects 中 i位置的数，然后返回一个新的数组
+    public static Project[] copyButExcept (Project[] projects, int i) {
+        Project[] copy = new Project[projects.length - 1];
+        int index = 0;
+        for (int j = 0; j < projects.length; j++) {
+            if (j != i) {
+                copy[index++] = projects[j];
+            }
+        }
+        return copy;
+    }
 }
