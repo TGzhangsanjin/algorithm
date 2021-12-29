@@ -65,7 +65,6 @@ public class Code03_LessMoneySplitGold {
 
         private void heapInsert (int index) {
             while (array[(index - 1) / 2] > array[index]) {
-                System.out.println((index - 1) /2);
                 ArrayUtil.swapTwoNum(array, index, (index - 1) / 2);
                 index = (index - 1) / 2;
             }
@@ -102,7 +101,6 @@ public class Code03_LessMoneySplitGold {
         while (heap.size() > 1) {
             int p1 = heap.poll();
             int p2 = heap.poll();
-            System.out.println("p1: = " + p1 + ", p2 = " + p2);
             current = p1 + p2;
             ans += current;
             // 还要再放回去
@@ -112,14 +110,66 @@ public class Code03_LessMoneySplitGold {
     }
 
     public static void main(String[] args) throws Exception {
-        int[] array = {10,20,30};
-        System.out.println(lessMoney(array));
+//        int[] array = {10,20,30};
+//        System.out.println(lessMoney(array));
+//        System.out.println(lessMoneyTest(array));
+        int testTimes = 1000;
+        int maxSize = 100;
+        int maxValue = 100;
+        for (int i = 0; i < testTimes; i++) {
+            int[] array = generateArray(maxSize, maxValue);
+            int min01 = lessMoney(array);
+            int min02 = lessMoneyTest(array);
+            if (min01 != min02) {
+                System.out.println("Opps!!!!!!");
+            }
+        }
     }
 
 
     // For Test
     public static int lessMoneyTest (int[] array) {
+        return process(array, 0);
+    }
 
+    // 等待合并的数组都在 array 里面，
+    // pre 表示之前的合并行为产生了多少总代价
+    public static int process (int[] array, int pre) {
+        // base case 小于两个数的时候，直接返回之前已经计算好的 pre
+        if (array == null || array.length < 2) {
+            return pre;
+        }
+        int min = Integer.MAX_VALUE;
+        // 这两个循环就代表，从 length 长度的数组array中选两个数，一共有多少种组合，遍历每一种中和
+        // 所有组合的最小组，就是当前递归返回的值
+        for (int i = 0; i < array.length - 1; i++) {
+            for (int j = i + 1; j < array.length; j++) {
+                int current = array[i] + array[j];
+                min = Math.min(process(copyAndMergeTwo(array, i, j), pre + current), min);
+            }
+        }
+        return min;
+    }
+
+    public static int[] copyAndMergeTwo(int[] array, int i, int j) {
+        int index = 0;
+        int[] copy = new int[array.length - 1];
+        for (int k = 0; k < array.length; k++) {
+            if (k != i && k != j) {
+                copy[index++] = array[k];
+            }
+        }
+        copy[array.length - 2] = array[i] + array[j];
+        return copy;
+    }
+
+    public static int[] generateArray (int maxSize, int maxValue) {
+        int size = (int) (Math.random() * maxSize) + 2;
+        int[] array = new int[size];
+        for (int i = 0; i < size; i++) {
+            array[i] = (int)(Math.random() * maxValue) + 1;
+        }
+        return array;
     }
 
 
