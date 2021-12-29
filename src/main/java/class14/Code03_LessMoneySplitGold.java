@@ -140,7 +140,7 @@ public class Code03_LessMoneySplitGold {
             return pre;
         }
         int min = Integer.MAX_VALUE;
-        // 这两个循环就代表，从 length 长度的数组array中选两个数，一共有多少种组合，遍历每一种中和
+        // 这两个循环就代表，从 length 长度的数组array中选两个数，一共有多少种组合，遍历每一种
         // 所有组合的最小组，就是当前递归返回的值
         for (int i = 0; i < array.length - 1; i++) {
             for (int j = i + 1; j < array.length; j++) {
