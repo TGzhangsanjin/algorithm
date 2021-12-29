@@ -117,4 +117,10 @@ public class Code03_LessMoneySplitGold {
     }
 
 
+    // For Test
+    public static int lessMoneyTest (int[] array) {
+
+    }
+
+
 }
