@@ -64,26 +64,27 @@ public class Code03_LessMoneySplitGold {
         }
 
         private void heapInsert (int index) {
-            while (array[(index - 1) >> 1] > array[index]) {
-                ArrayUtil.swapTwoNum(array, index, (index - 1) >> 1);
-                index = (index - 1) >> 1;
+            while (array[(index - 1) / 2] > array[index]) {
+                System.out.println((index - 1) /2);
+                ArrayUtil.swapTwoNum(array, index, (index - 1) / 2);
+                index = (index - 1) / 2;
             }
         }
 
         private void heapify (int index) {
-            int left = (index << 1) + 1;
+            int left = (index * 2) + 1;
             while (left < size) {
                 // 找出左孩子和右孩子中的更小者
                 int minIndex = (left + 1) < size && array[left + 1] < array[left] ? left + 1:left;
                 // 当前节点、左孩子、右孩子中的最小者
-                minIndex = array[index] > array[minIndex] ? index:minIndex;
+                minIndex = array[index] <= array[minIndex] ? index : minIndex;
                 if (minIndex == index) {
                     // 已经到了应该到的位置了
                     break;
                 }
                 ArrayUtil.swapTwoNum(array, index, minIndex);
                 index = minIndex;
-                left = (index << 1) + 1;
+                left = (index * 2) + 1;
             }
         }
     }
@@ -92,18 +93,28 @@ public class Code03_LessMoneySplitGold {
         if (array == null || array.length < 1) {
             return 0;
         }
-        MyHeap heap = new MyHeap(1000);
+        MyHeap heap = new MyHeap(array.length);
         for (int i = 0; i < array.length; i++) {
             heap.add(array[i]);
         }
         int current;
         int ans = 0;
         while (heap.size() > 1) {
-            current = heap.poll() + heap.poll();
+            int p1 = heap.poll();
+            int p2 = heap.poll();
+            System.out.println("p1: = " + p1 + ", p2 = " + p2);
+            current = p1 + p2;
             ans += current;
             // 还要再放回去
             heap.add(current);
         }
         return ans;
     }
+
+    public static void main(String[] args) throws Exception {
+        int[] array = {10,20,30};
+        System.out.println(lessMoney(array));
+    }
+
+
 }
