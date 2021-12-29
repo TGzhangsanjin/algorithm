@@ -113,9 +113,9 @@ public class Code03_LessMoneySplitGold {
 //        int[] array = {10,20,30};
 //        System.out.println(lessMoney(array));
 //        System.out.println(lessMoneyTest(array));
-        int testTimes = 1000;
-        int maxSize = 100;
-        int maxValue = 100;
+        int testTimes = 10000;
+        int maxSize = 5;
+        int maxValue = 10;
         for (int i = 0; i < testTimes; i++) {
             int[] array = generateArray(maxSize, maxValue);
             int min01 = lessMoney(array);
