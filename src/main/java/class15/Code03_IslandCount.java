@@ -5,6 +5,7 @@ package class15;
  * 测试链接：https://leetcode.com/problems/number-of-islands/
  * 给定一个二维数组 matrix, 里面的值不是1就是0
  * 上、下、左、右相邻的1认为是一片岛， 返回 matrix中岛的数量
+ *
  * @Author 张三金
  * @Date 2021/12/30 0030 11:26
  * @Company jzb
@@ -15,6 +16,7 @@ public class Code03_IslandCount {
     /**
      * 感染的方式实现
      * 从左往右，从上往下去遍历每一个位置的数据，只要遍历到1，然后递归的将其上、下、左、右的值全部感染成 2
+     * 时间复杂度： O(m * n)
      */
     public int numIsland (char[][] grid) {
         int count = 0;
@@ -49,5 +51,18 @@ public class Code03_IslandCount {
         infect(matrix, i, j + 1);
         // 感染下边
         infect(matrix, i, j - 1);
+    }
+
+    /**
+     *  并查集思路解决此问题
+     */
+    public void numIsland2 (char[][] grid){
+
+    }
+
+    class UnionFind2<T> {
+
+
+
     }
 }
