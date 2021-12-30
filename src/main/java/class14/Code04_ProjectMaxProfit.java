@@ -134,6 +134,7 @@ public class Code04_ProjectMaxProfit {
             while (!minHeap.isEmpty() && minHeap.peek().cost <= m) {
                 maxHeap.add(minHeap.poll());
             }
+            // 资金不够去解锁新的项目(新项目的 cost都太大了)
             if (maxHeap.isEmpty()) {
                 return m;
             }
