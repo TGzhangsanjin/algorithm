@@ -15,7 +15,7 @@ package class15;
  * @Company jzb
  * @Version 1.0.0
  */
-public class Code05_FriendCircle {
+public class Code02_FriendCircle {
 
     // m 是一个矩阵，且行列数相同
     public static int findCircleNum (int[][] m) {

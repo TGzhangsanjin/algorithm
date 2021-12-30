@@ -34,7 +34,7 @@ import java.util.Stack;
  * @Company jzb
  * @Version 1.0.0
  */
-public class Code04_UnionFind {
+public class Code01_UnionFind {
 
     public static class Node<T> {
         T value;
