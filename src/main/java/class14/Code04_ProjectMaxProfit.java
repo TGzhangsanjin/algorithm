@@ -115,6 +115,7 @@ public class Code04_ProjectMaxProfit {
         }
     }
 
+    // 返回最大的收益，如果一个项目都做不了，则返回初始资金
     public static int maxProfit (int[] costs, int[] profits, int k, int m) {
         // 花费的小根堆
         MyHeap<Program> minHeap = new MyHeap<>(1000, (a, b) -> {
@@ -137,16 +138,72 @@ public class Code04_ProjectMaxProfit {
                 return m;
             }
             // 每次从最大堆中弹出一个
-            System.out.println(maxHeap.peek().profit);
             m += maxHeap.poll().profit;
         }
         return m;
     }
 
     public static void main(String[] args) {
-        int[] costs = {1,2,3,5};
-        int[] profits = {2,3,3,4};
-        System.out.println(maxProfit(costs, profits, 3, 1));
+        boolean success = true;
+        int testTimes = 10000;
+        int size = 5;
+        int maxValue = 10;
+        for (int i = 0; i < testTimes; i++) {
+            int[] costs = ArrayUtil.generateRandomArray03(size, maxValue);
+            int[] profits = ArrayUtil.generateRandomArray03(size, maxValue);
+            int k = (int)(Math.random() * 10) + 1;
+            int m = (int)(Math.random() * 5) + 1;
+            int profit01 = maxProfit(costs, profits, k, m);
+            int profit02 = maxProfitTest(costs, profits, k, m);
+            if (profit01 != profit02) {
+                success = false;
+                System.out.println("Opps!");
+            }
+        }
+        if (success) {
+            System.out.println("Success!!!");
+        }
+
+    }
+
+
+    public static int maxProfitTest (int[] costs, int[] profits, int k, int m) {
+        Program[] programs = new Program[costs.length];
+        // 先将所有数据放入小根堆中
+        for (int i = 0; i < costs.length; i++) {
+            programs[i] = new Program(costs[i], profits[i]);
+        }
+        return process(programs, k, m);
+    }
+
+    // programs, 剩下的能做的项目
+    // canDo 还能做多少个项目
+    // m 之前累计的资金
+    public static int process (Program[] programs, int canDo, int m) {
+        // baseCase
+        if (canDo == 0 || programs.length == 0) {
+            return m;
+        }
+        int max = m;
+        for (int i = 0; i < programs.length; i++) {
+            if (programs[i].cost > m) {
+                continue;
+            }
+            int current = process(copyExcept(programs, i), canDo - 1, m + programs[i].profit);
+            max = Math.max(current, max);
+        }
+        return max;
+    }
+
+    public static Program[] copyExcept (Program[] programs, int i) {
+        Program[] copy = new Program[programs.length - 1];
+        int index = 0;
+        for (int j = 0; j < programs.length; j++) {
+            if (i != j) {
+                copy[index++] = programs[j];
+            }
+        }
+        return copy;
     }
 
 }
