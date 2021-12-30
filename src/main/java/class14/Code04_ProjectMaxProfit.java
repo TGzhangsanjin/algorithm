@@ -90,7 +90,7 @@ public class Code04_ProjectMaxProfit {
 
         // 往上提
         private void heapInsert (int index) {
-            // 含义就是 如果 index 位置上的数应该排在 (index - ) / 2 前面
+            // 含义就是 如果 index 位置上的数应该排在 (index - 2) / 2 前面
             while(comparator.compare((T)array[index], (T) array[(index - 1) / 2]) < 0) {
                 ArrayUtil.swapTwoNum(array, index, (index - 1) / 2);
                 index = (index - 1) / 2;
@@ -104,10 +104,11 @@ public class Code04_ProjectMaxProfit {
                 // 左右孩子找到一个应该排在前面的下标
                 int temp = left + 1 < size && (comparator.compare((T)array[left + 1], (T) array[left]) < 0) ? left + 1 : left;
                 // 在和当前比，找到应该排在前面的下标
-                temp = comparator.compare((T)array[index], (T) array[temp]) < 0 ? index : temp;
+                temp = comparator.compare((T) array[temp], (T)array[index]) < 0 ? temp : index;
                 if (index == temp) {
                     return;
                 }
+                ArrayUtil.swapTwoNum(array, index, temp);
                 index = temp;
                 left = index * 2 + 1;
             }
@@ -129,15 +130,23 @@ public class Code04_ProjectMaxProfit {
         }
         for (int i = 0; i < k; i++) {
             // 将所有能做的项目都放到最大堆里面
-            while (!minHeap.isEmpty() && minHeap.peek().cost < m) {
+            while (!minHeap.isEmpty() && minHeap.peek().cost <= m) {
                 maxHeap.add(minHeap.poll());
             }
             if (maxHeap.isEmpty()) {
                 return m;
             }
             // 每次从最大堆中弹出一个
+            System.out.println(maxHeap.peek().profit);
             m += maxHeap.poll().profit;
         }
         return m;
     }
+
+    public static void main(String[] args) {
+        int[] costs = {1,2,3,5};
+        int[] profits = {2,3,3,4};
+        System.out.println(maxProfit(costs, profits, 3, 1));
+    }
+
 }
