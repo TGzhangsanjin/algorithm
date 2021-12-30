@@ -13,7 +13,8 @@ package class15;
 public class Code03_IslandCount {
 
     /**
-     * 感染的方式实现，遍历每一个位置的数据，只要遍历到1，然后递归的将其上、下、左、右的值全部感染成 2
+     * 感染的方式实现
+     * 从左往右，从上往下去遍历每一个位置的数据，只要遍历到1，然后递归的将其上、下、左、右的值全部感染成 2
      */
     public int numIsland (char[][] grid) {
         int count = 0;
