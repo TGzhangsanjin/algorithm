@@ -46,6 +46,6 @@ public class Code05_MinStreetlight {
                 }
             }
         }
-        return count
+        return count;
     }
 }
