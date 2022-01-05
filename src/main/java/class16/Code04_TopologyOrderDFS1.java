@@ -28,7 +28,7 @@ public class Code04_TopologyOrderDFS1 {
     }
 
     // 用于记录每个节点的长度
-    public class Record {
+    public static class Record {
         public DirectedGraphNode node;
 
         public int length;
@@ -39,11 +39,40 @@ public class Code04_TopologyOrderDFS1 {
         }
     }
 
+    public static ArrayList<DirectedGraphNode> topSort (ArrayList<DirectedGraphNode> graph) {
+        HashMap<DirectedGraphNode, Record> order = new HashMap<>();
+        // 1. 计算好每个节点的长度
+        for (DirectedGraphNode current : graph) {
+            f(current, order);
+        }
+        ArrayList<Record> records = new ArrayList<>();
+        for (Record value : order.values()) {
+            records.add(value);
+        }
+        // 2. 对每个节点按照长度的逆序进行排序
+        records.sort((a, b) -> b.length - a.length);
+
+        // 3. 排序的顺序就是图的一个拓扑排序
+        ArrayList<DirectedGraphNode> rsp = new ArrayList<>();
+        for (Record record : records) {
+            rsp.add(record.node);
+        }
+        return rsp;
+    }
+
     // current 当前节点
     // order 记录每个节点的长度
-    public static void f(DirectedGraphNode current, HashMap<DirectedGraphNode, Record> order) {
+    public static Record f(DirectedGraphNode current, HashMap<DirectedGraphNode, Record> order) {
         if (order.containsKey(current)) {
-
+            return order.get(current);
         }
+        int follow = 0;
+        for (DirectedGraphNode neighbor : current.neighbors) {
+            // 看看走哪条路能够获取最大的长度
+            follow = Math.max(follow, f(neighbor, order).length);
+        }
+        Record record = new Record(current, follow + 1);
+        order.put(current, record);
+        return record;
     }
 }
