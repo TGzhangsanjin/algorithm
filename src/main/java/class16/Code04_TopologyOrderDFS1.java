@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 /**
  * OJ链接：https://www.lintcode.com/problem/topological-sorting
- *
+ *  计算节点的长度肯定是比计算节点的点次要好的，因为length 只要申请int类型，而 nodeCount 需要申请 long类型
  * 思路就是 Code03_TopologySort
  * @Author 张三金
  * @Date 2022/1/4 0004 16:23
