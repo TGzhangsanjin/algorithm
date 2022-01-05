@@ -62,7 +62,7 @@ public class Code02_FriendCircle {
                 help[++index] = i;
                 i = parents[i];
             }
-            // 路径压缩，把当前节点以及中间的几点全部指向同一个祖先
+            // 路径压缩，把当前节点以及中间的节点全部指向同一个祖先
             while (index >= 0) {
                 parents[help[index--]] = i;
             }
