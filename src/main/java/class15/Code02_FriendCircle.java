@@ -35,7 +35,7 @@ public class Code02_FriendCircle {
     }
 
     public static class UnionFind {
-        // parents[i] = k， 表示i网上指向的节点时 k（注意不一定是祖先）
+        // parents[i] = k， 表示i往上指向的节点时 k（注意不一定是祖先）
         public int[] parents;
         // size[i] 表示i代表的集合大小，即朋友圈个数
         // 只有i是代表节点时，size[i] 才有意义
