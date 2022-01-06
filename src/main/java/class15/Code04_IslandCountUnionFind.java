@@ -11,7 +11,7 @@ package class15;
  * @Company jzb
  * @Version 1.0.0
  */
-public class Code03_IslandCount {
+public class Code04_IslandCountUnionFind {
 
     /**
      * 感染的方式实现
@@ -55,6 +55,8 @@ public class Code03_IslandCount {
 
     /**
      *  并查集思路解决此问题
+     *
+     *  思路：遍历每一个节点，都去找左边和上边的'1'进行合并（不需要去找右边和下边的），
      */
     public void numIsland2 (char[][] grid){
 
