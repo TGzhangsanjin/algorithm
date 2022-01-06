@@ -10,6 +10,36 @@ package class15;
  */
 public class Code05_IslandCountUnionFIndV2 {
 
+    public static int numIslands(char[][] grid) {
+        int row = grid.length;
+        int col = grid[0].length;
+        UnionFind unionFind = new UnionFind(grid);
+        for (int i = 1; i < col; i++) {
+            if (grid[0][i - 1] == '1' && grid[0][i] == '1') {
+                unionFind.union(0, i -1, 0, i);
+            }
+        }
+        for (int i = 1; i < row; i++ ) {
+            if (grid[i - 1][0] == '1' && grid[i][0] == '1') {
+                unionFind.union(i - 1, 0, i, 0);
+            }
+        }
+
+        for (int i = 1; i < row; i++) {
+            for (int j = 1; j < col; j++) {
+                if (grid[i][j] == '1') {
+                    if (grid[i - 1][j] == '1') {
+                        unionFind.union(i - 1, j, i, j);
+                    }
+                    if (grid[i][j - 1] == '1') {
+                        unionFind.union(i, j - 1, i, j);
+                    }
+                }
+            }
+        }
+        return unionFind.count;
+    }
+
 
     public static class UnionFind {
 
@@ -62,14 +92,16 @@ public class Code05_IslandCountUnionFIndV2 {
             int index02 = index(i2, j2);
             int ancestor01 = findAncestor(index01);
             int ancestor02 = findAncestor(index02);
-            int big = sizes[ancestor01] > sizes[ancestor02] ? ancestor01:ancestor02;
-            int small = big == ancestor01 ? ancestor02: ancestor01;
+            if (ancestor01 != ancestor02) {
+                int big = sizes[ancestor01] > sizes[ancestor02] ? ancestor01:ancestor02;
+                int small = big == ancestor01 ? ancestor02: ancestor01;
 
-            parents[small] = big;
-            sizes[big] = sizes[ancestor01] + sizes[ancestor02];
-            // 这一行可有可无
-            sizes[small] = 0;
-            count--;
+                parents[small] = big;
+                sizes[big] = sizes[ancestor01] + sizes[ancestor02];
+                // 这一行可有可无
+                sizes[small] = 0;
+                count--;
+            }
         }
 
 
