@@ -58,7 +58,18 @@ public class Code05_IslandCountUnionFIndV2 {
 
         // (i1, j1)和 (i2, j2) 两个位置进行union
         public void union (int i1, int j1, int i2, int j2) {
+            int index01 = index(i1, j1);
+            int index02 = index(i2, j2);
+            int ancestor01 = findAncestor(index01);
+            int ancestor02 = findAncestor(index02);
+            int big = sizes[ancestor01] > sizes[ancestor02] ? ancestor01:ancestor02;
+            int small = big == ancestor01 ? ancestor02: ancestor01;
 
+            parents[small] = big;
+            sizes[big] = sizes[ancestor01] + sizes[ancestor02];
+            // 这一行可有可无
+            sizes[small] = 0;
+            count--;
         }
 
 
