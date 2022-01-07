@@ -14,7 +14,7 @@ import java.util.HashMap;
  * @Company jzb
  * @Version 1.0.0
  */
-public class Code05_IslandCountV2 {
+public class Code06_IslandCountV2 {
 
     /**
      * m*n大小的矩阵
