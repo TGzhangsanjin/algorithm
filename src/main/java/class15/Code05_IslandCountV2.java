@@ -115,4 +115,9 @@ public class Code05_IslandCountV2 {
             System.out.print(ans[i] + ",");
         }
     }
+
+    // 如果 m和n都很大，比如上亿的话，而 positions 特别小的话，那么上面方法方法就需要开辟很大的数组，额外空间复杂度就太高了
+    public static int[] numIsland22 (int m, int n, int[][] positions) {
+
+    }
 }
