@@ -1,5 +1,8 @@
 package class15;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  *  题目链接 https://leetcode-cn.com/problems/number-of-islands-ii/
  * 岛数量问题2
@@ -109,7 +112,7 @@ public class Code05_IslandCountV2 {
 
     public static void main(String[] args) {
         int[][] positions = {{0, 0}, {0,1},{1,2}, {2,1}};
-        int[] ans = numIsland2(3,3,positions);
+        int[] ans = numIsland22(3,3,positions);
 
         for (int i = 0; i < ans.length; i++) {
             System.out.print(ans[i] + ",");
@@ -118,6 +121,81 @@ public class Code05_IslandCountV2 {
 
     // 如果 m和n都很大，比如上亿的话，而 positions 特别小的话，那么上面方法方法就需要开辟很大的数组，额外空间复杂度就太高了
     public static int[] numIsland22 (int m, int n, int[][] positions) {
+        UnionFindV2 unionFindV2 = new UnionFindV2(m, n);
+        int[] ans = new int[positions.length];
+        for (int i = 0; i < ans.length; i++) {
+            ans[i] = unionFindV2.connect(positions[i][0], positions[i][1]);
+        }
+        return ans;
+    }
 
+
+    public static class UnionFindV2 {
+        public HashMap<String, String> parents;
+
+        public HashMap<String, Integer> sizes;
+
+        public ArrayList<String> help;
+
+        public int count;
+
+        public int row;
+        public int col;
+
+        public UnionFindV2 (int m, int n){
+            this.parents = new HashMap<>();
+            this.sizes = new HashMap<>();
+            this.help = new ArrayList<>();
+            this.row = m;
+            this.col = n;
+            this.count = 0;
+        }
+
+        public String findAncestor (String i) {
+            while (!parents.get(i).equals(i)) {
+                help.add(parents.get(i));
+                i = parents.get(i);
+            }
+            for (String s : help) {
+                parents.put(s, i);
+            }
+            help = new ArrayList<>();
+            return i;
+        }
+
+        public void union (int i1, int j1, int i2, int j2) {
+            if (i1 == row || i1 < 0 || j1 == col || j1 < 0) {
+                return;
+            }
+            String index1 = i1 + "_" + j1;
+            String index2 = i2 + "_" + j2;
+            if (sizes.get(index1) == null || sizes.get(index2) == null) {
+                // 其中有一个节点是不需要处理的，直接返回
+                return;
+            }
+            String ancestor1 = findAncestor(index1);
+            String ancestor2 = findAncestor(index2);
+            if (!ancestor1.equals(ancestor2)) {
+                String big = sizes.get(ancestor1) > sizes.get(ancestor2) ? ancestor1:ancestor2;
+                String small = big.equals(ancestor1) ? ancestor2:ancestor1;
+                parents.put(small, big);
+                sizes.put(big, sizes.get(ancestor1) + sizes.get(ancestor2));
+                count--;
+            }
+        }
+
+        public int connect (int r, int c) {
+            String current = r + "_" + c;
+            if (sizes.get(current) == null) {
+                parents.put(current, current);
+                sizes.put(current, 0);
+                count++;
+                union(r - 1, c, r, c);
+                union(r + 1, c, r, c);
+                union(r, c - 1, r, c);
+                union(r, c + 1, r, c);
+            }
+            return count;
+        }
     }
 }
