@@ -18,7 +18,7 @@ public class Code03_IslandCountInfect {
      * 从左往右，从上往下去遍历每一个位置的数据，只要遍历到1，然后递归的将其上、下、左、右的值全部感染成 2
      * 时间复杂度： O(m * n)
      */
-    public int numIsland (char[][] grid) {
+    public static int numIsland (char[][] grid) {
         int count = 0;
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
@@ -32,7 +32,7 @@ public class Code03_IslandCountInfect {
     }
 
     // 去递归感染位置 martix[i][j] 周围所以的 '1'
-    public void infect (char[][] matrix, int i, int j) {
+    public static void infect (char[][] matrix, int i, int j) {
         // baseCase1 下标越界了，返回
         if (i < 0 || i >= matrix.length || j < 0 || j >= matrix[0].length) {
             return;

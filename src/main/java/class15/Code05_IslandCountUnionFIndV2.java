@@ -11,13 +11,6 @@ package class15;
  */
 public class Code05_IslandCountUnionFIndV2 {
 
-    public static void main(String[] args) {
-
-        char[][] grid = {{'1','1','0','0','0'},{'1','1','0','0','0'},{'0','0','1','0','0'},{'0','0','0','1','1'}};
-
-        System.out.println(numIslands(grid));
-    }
-
     public static int numIslands(char[][] grid) {
         int row = grid.length;
         int col = grid[0].length;
@@ -112,13 +105,65 @@ public class Code05_IslandCountUnionFIndV2 {
             }
         }
 
-
         // 二维数组的位置转换成一维数组的下标
         // (i, j) -> k
         public int index (int i, int j) {
             return i * col + j;
         }
 
+    }
+
+    public static void main(String[] args) {
+        int maxRow = 10000;
+        int maxCol = 10000;
+
+        char[][] grid01 = generateMatrix(maxRow, maxCol);
+        char[][] grid02 = copyMatrix(grid01);
+        char[][] grid03 = copyMatrix(grid01);
+        long start01 = System.currentTimeMillis();
+        int ans = Code03_IslandCountInfect.numIsland(grid01);
+        long end01 = System.currentTimeMillis();
+        System.out.println(ans + " 感染方式耗时： " + (end01 - start01) + "ms");
+
+        start01 = System.currentTimeMillis();
+        ans = Code05_IslandCountUnionFIndV2.numIslands(grid02);
+        end01 = System.currentTimeMillis();
+        System.out.println(ans + " 并查集数组方式： " + (end01 - start01) + "ms");
+
+        start01 = System.currentTimeMillis();
+        ans = Code04_IslandCountUnionFind.numIslands(grid03);
+        end01 = System.currentTimeMillis();
+        System.out.println(ans + " 并查集map方式： " + (end01 - start01) + "ms");
+    }
+
+
+    public static char[][] copyMatrix (char[][] grid) {
+        int row = grid.length;
+        int col = grid[0].length;
+        char[][] copy = new char[row][col];
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                copy[i][j] = grid[i][j];
+            }
+        }
+        return copy;
+    }
+
+    public static char[][] generateMatrix (int maxRow, int maxCol) {
+        int row = (int) (Math.random() * maxRow) + 1;
+        int col = (int) (Math.random() * maxCol) + 1;
+
+        char[][] grid= new char[row][col];
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if (Math.random() < 0.4) {
+                    grid[i][j] = '1';
+                } else {
+                    grid[i][j] = '0';
+                }
+            }
+        }
+        return grid;
     }
 
 }
