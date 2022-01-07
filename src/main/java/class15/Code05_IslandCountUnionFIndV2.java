@@ -2,6 +2,7 @@ package class15;
 
 /**
  * 并查集解决岛问题
+ * 测试链接：https://leetcode.com/problems/number-of-islands/
  * 并查集中不使用map的方式，二维数组转换成一维数组， 二维数组 matrix[i][j] 中对应一维数组的下标就是 array[i*列数] + j
  * @Author 张三金
  * @Date 2022/1/6 0006 11:01
@@ -9,6 +10,13 @@ package class15;
  * @Version 1.0.0
  */
 public class Code05_IslandCountUnionFIndV2 {
+
+    public static void main(String[] args) {
+
+        char[][] grid = {{'1','1','0','0','0'},{'1','1','0','0','0'},{'0','0','1','0','0'},{'0','0','0','1','1'}};
+
+        System.out.println(numIslands(grid));
+    }
 
     public static int numIslands(char[][] grid) {
         int row = grid.length;
@@ -66,7 +74,9 @@ public class Code05_IslandCountUnionFIndV2 {
                     int index = index(i, j);
                     parents[index] = index;
                     sizes[index] = 1;
-                    count++;
+                    if (grid[i][j] == '1') {
+                        count++;
+                    }
                 }
             }
         }
@@ -74,14 +84,12 @@ public class Code05_IslandCountUnionFIndV2 {
         public int findAncestor (int i) {
             int helpIndex = 0;
             while (parents[i] != i) {
-                help[helpIndex] = parents[i];
-                helpIndex++;
+                help[helpIndex++] = parents[i];
                 i = parents[i];
             }
             // 压缩路径
-            while (helpIndex >= 0) {
-                parents[help[helpIndex]] = i;
-                helpIndex--;
+            while (helpIndex > 0) {
+                parents[help[--helpIndex]] = i;
             }
             return i;
         }
@@ -93,7 +101,7 @@ public class Code05_IslandCountUnionFIndV2 {
             int ancestor01 = findAncestor(index01);
             int ancestor02 = findAncestor(index02);
             if (ancestor01 != ancestor02) {
-                int big = sizes[ancestor01] > sizes[ancestor02] ? ancestor01:ancestor02;
+                int big = sizes[ancestor01] >= sizes[ancestor02] ? ancestor01:ancestor02;
                 int small = big == ancestor01 ? ancestor02: ancestor01;
 
                 parents[small] = big;
