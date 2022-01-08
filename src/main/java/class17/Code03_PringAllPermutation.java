@@ -66,9 +66,10 @@ public class Code03_PringAllPermutation {
             ans.add(String.valueOf(chars));
             return;
         }
+        // 已当前index作为基准，判断有哪些字符和index交换过了，记录下来，后续就不交换了，
+        boolean[] visited = new boolean[256];
         // index 和后面的进行交换递归即可，，和前面的其实已经处理过了
         for (int i = index; i < chars.length; i++) {
-            boolean[] visited = new boolean[256];
             if (!visited[chars[i]]) {
                 visited[chars[i]] = true;
                 swap(chars, index, i);
