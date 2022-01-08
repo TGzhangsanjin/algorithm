@@ -15,6 +15,10 @@ import java.util.List;
  *   (2) 将 n 从 from 直接移动到 to
  *   (3) 将 [1, n-1] 个盘子从other 移动到 to (借助from)
  *
+ *   时间复杂度： 2^n  - 1
+ *
+ *   ps: 递归小技巧，一个递归函数可以通过增加参数的方式增加更多的可能性
+ *
  * @Author 张三金
  * @Date 2022/1/8 0008 9:29
  * @Company jzb
