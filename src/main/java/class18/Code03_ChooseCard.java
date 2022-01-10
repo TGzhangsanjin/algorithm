@@ -94,10 +94,45 @@ public class Code03_ChooseCard {
         return ans;
     }
 
+
+    /**
+     * 两个矩阵，一个先手矩阵，一个后手矩阵，因为 left <= right 所以两个矩阵都只需要考虑右上角那一半
+     * 根据base case 可以得出
+     *  先手矩阵从左上往右下对角线的值（left==right） 就是对应的arr[left]的值
+     *  后手举证从左上往右下对角线的值都是0
+     * 后手矩阵中非对角线的值 g[left][right] = Math.min(f[left][right - 1], f[left + 1][right])  (左边的值+下边的值)
+     * 先手矩阵中非对角线的值 f[left][right] = Math.max(arr[left] + g[left + 1][right], arr[right] + g[left][right - 1])
+     *
+     *  最后返回结果 Math.max(f[0][arr.length], g[0][arr.length])
+     */
+    public static int win03 (int[] arr) {
+        // 先手矩阵
+        int[][] f = new int[arr.length][arr.length];
+        // 后手矩阵
+        int[][] g = new int[arr.length][arr.length];
+        // 初始化先手矩阵的对角线
+        for (int i = 0; i < arr.length; i++) {
+            f[i][i] = arr[i];
+        }
+        // 遍历每一列，为什么选择最外面遍历每一列，因为对角线往下爬，，列会比行先越界，
+        for (int startCol = 1; startCol < arr.length; startCol++) {
+            int L = 0;
+            int R = startCol;
+            while (R < arr.length) {
+                f[L][R] = Math.max(arr[L] + g[L + 1][R], arr[R] + g[L][R - 1]);
+                g[L][R] = Math.min(f[L][R - 1], f[L + 1][R]);
+                L++;
+                R++;
+            }
+        }
+        return Math.max(f[0][arr.length - 1], g[0][arr.length - 1]);
+    }
+
     public static void main(String[] args) {
 
         int[] arr = { 5, 7, 4, 5, 8, 1, 6, 0, 3, 4, 6, 1, 7 };
         System.out.println(win01(arr));
         System.out.println(win02(arr));
+        System.out.println(win03(arr));
     }
 }
