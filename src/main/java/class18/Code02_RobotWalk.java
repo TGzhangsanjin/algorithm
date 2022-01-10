@@ -84,7 +84,7 @@ public class Code02_RobotWalk {
         int start = 2;
         int aim = 10;
         int N = 12;
-        int K = 100;
+        int K = 30;
         System.out.println(robotWalk02(start, aim, N, K));
         System.out.println(robotWalk01(start, aim, N, K));
 
