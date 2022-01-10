@@ -49,7 +49,7 @@ public class Code02_RobotWalk {
         return process01(cur + 1, rest - 1, aim, N) + process01(cur - 1, rest - 1, aim, N);
     }
 
-    // 加缓存的方式
+    // 加缓存的方式,, 也叫记忆化搜索，也叫从顶向下的动态规划
     public static int robotWalk02 (int start, int aim, int N, int K) {
         // 注意这里dp数组的大小应该是由 N 和 K决定的
         int[][] dp = new int[N+1][K+1];
@@ -84,7 +84,7 @@ public class Code02_RobotWalk {
         int start = 2;
         int aim = 10;
         int N = 12;
-        int K = 30;
+        int K = 35;
         System.out.println(robotWalk02(start, aim, N, K));
         System.out.println(robotWalk01(start, aim, N, K));
 
