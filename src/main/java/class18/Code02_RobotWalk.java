@@ -80,13 +80,45 @@ public class Code02_RobotWalk {
         return ans;
     }
 
+    /**
+     * start = 2 aim = 4  K = 6
+     * 看 baseCase : cur == aim 的时候，才是1
+     *   0 0  1  2  3  4  5  6     rest
+     *   0 X  X  X  X  X  X  X
+     *   1 0  0  0  1  0  4  0
+     *   2 0  0  1  0  4  0  13
+     *   3 0  1  0  3  0  9  0
+     *   4 1  0  2  0  5  0  14
+     *   5 0  1  0  2  0  5  0
+     *  cur
+     * 如果cur == 1，则依赖左下角[cur+1][rest-1]的值
+     * 如果cur == N, 则依赖左上角[cur-1][rest-1]的值
+     * 普遍位置：依赖 [cur+1][rest-1] + [cur-1][rest-1]
+     */
+    public static int robotWalk03 (int start, int aim, int N, int K) {
+        int[][] dp = new int[N+1][K+1];
+        // 根据 base case 得出来的，rest == 0 && cur == aim 时就是返回 1
+        dp[aim][0] = 1;
+
+        for (int i = 1; i <= K; i++) {
+            dp[1][i] = dp[2][i-1];
+            for (int j = 2; j < N; j++) {
+                // 注意， 二维数组和矩阵的对应关系，第一个[] 表示行，，第二个 [] 表示 列
+                dp[j][i] = dp[j-1][i-1] + dp[j+1][i-1];
+            }
+            dp[N][i] = dp[N-1][i - 1];
+        }
+        return dp[start][K];
+    }
+
     public static void main(String[] args) {
         int start = 2;
-        int aim = 10;
-        int N = 12;
-        int K = 35;
+        int aim = 4;
+        int N = 5;
+        int K = 6;
         System.out.println(robotWalk02(start, aim, N, K));
         System.out.println(robotWalk01(start, aim, N, K));
+        System.out.println(robotWalk03(start, aim, N, K));
 
     }
 }
