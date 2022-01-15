@@ -62,7 +62,12 @@ public class Code05_ConvertToLetterString {
         int[] dp = new int[chars.length + 1];
         dp[chars.length] = 1;
         for (int i = dp.length - 2; i >= 0; i--) {
-            if (chars[i] > '0' || chars[i] <= '9') {
+            if (chars[i] < '0' || chars[i] > '9') {
+                return 0;
+            }
+            // 这个 chars[i] != '0' 这个操作很骚，表名如果当前字符是0的话，那么当前字符就不处理了，它必须和它前面一个字符连在一起组成一个数字才行
+            // 很抽象
+            if (chars[i] != '0') {
                 int ways = dp[i + 1];
                 if (i + 1 < chars.length  && ((chars[i] - '0') * 10 + (chars[i + 1] - '0')) < 27) {
                     // 1. index + 2 不能越界  2. index和index+1 两个连在一起组成的数字不能超过26
@@ -75,8 +80,10 @@ public class Code05_ConvertToLetterString {
 
     }
 
+
     public static void main(String[] args) {
-        String str = "11123643532432";
+//        String str = "11123643532432";
+        String str = "111";
         System.out.println(number(str));
         System.out.println(number02(str));
     }
