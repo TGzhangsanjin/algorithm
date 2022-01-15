@@ -67,6 +67,7 @@ public class Code07_LongestCommonSubsequence {
 
     /**
      * 动态规划改写
+     * 其实就是就是把递归抽象成一个矩阵，现有递归的思路，才会有dp
      */
     public static int dp (String text1, String text2) {
         char[] c1 = text1.toCharArray();
