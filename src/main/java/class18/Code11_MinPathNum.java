@@ -1,7 +1,7 @@
 package class18;
 
 /**
- * 路径最小累加和问题
+ * 最小累加和问题
  * 题目描述：
  *      给定一个二维数组 matrix, 一个人必须从左上角出发，最后到达右下角
  *      沿途只可以向下或者向右走，沿途的数字都累加就是距离累加和
@@ -83,11 +83,12 @@ public class Code11_MinPathNum {
         }
         return dp[N-1][M-1];
     }
+
     /**
      * 压缩数组
      * 省空间的做法，只需要一个额外的一位数组就可以（当然就会改变原有数组的值）
      */
-    public static int minPathNum04(int[][] matrix) {
+    public static int minPathNum03 (int[][] matrix) {
         int N = matrix.length;
         int M = matrix[0].length;
         // 第一行的值
@@ -98,41 +99,23 @@ public class Code11_MinPathNum {
         for (int i = 1; i < N; i++) {
             matrix[i][0] = matrix[i-1][0] + matrix[i][0];
         }
-        if (M < N) {
-            int[] last = new int[M];
-            // 初始化第一行
-            last[0] = matrix[0][0];
-            for (int i = 1; i < N; i++) {
-                last[i] = last[i-1] + matrix[i][0];
-            }
-            int[] current = new int[M];
-            for (int i = 1; i < N; i++) { // 行
-                current[0] = matrix[i][0];
-                for (int j = 1; j < M; j++) { // 列
-                    matrix[i][j] = Math.min(current[j-1], matrix[i-1][j]) + matrix[i][j];
-                    // 动态维护 current 的值
-                    current[j] = matrix[i][j];
-                }
-            }
-        } else {
-            int[] array = new int[N];
-            for (int i = 1; i < M; i++) { // 列
-                array[0] = matrix[0][i];
-                for (int j = 1; j < N; j++) { // 行
-                    matrix[j][i] = Math.min(array[j-1], matrix[j][i-1]) + matrix[j][i];
-                    // 动态维护 array 的值
-                    array[j] = matrix[j][i];
-                }
+        int[] array = new int[M];
+        for (int i = 1; i < N; i++) {
+            array[0] = matrix[i][0];
+            for (int j = 1; j < M; j++) {
+                matrix[i][j] = Math.min(array[j-1], matrix[i-1][j]) + matrix[i][j];
+                // 动态维护 array 的值
+                array[j] = matrix[i][j];
             }
         }
         return matrix[N-1][M-1];
     }
 
     /**
-     * 针对 minPathNum04， 如果原数组有 100万列， 只有4行，，那就jiji了，所以要判断一下
+     * 针对 minPathNum03， 如果原数组有 100万列， 只有4行，，那就jiji了，所以要判断一下
      *
      */
-    public static int minPathNum05(int[][] matrix) {
+    public static int minPathNum04 (int[][] matrix) {
         int N = matrix.length;
         int M = matrix[0].length;
         // 第一行的值
@@ -178,8 +161,8 @@ public class Code11_MinPathNum {
 
         System.out.println(minPathNum01(matrix));
         System.out.println(minPathNum02(matrix));
-//        System.out.println(minPathNum04(matrix));
-        System.out.println(minPathNum05(matrix));
+//        System.out.println(minPathNum03(matrix));
+        System.out.println(minPathNum04(matrix));
 
         int testTimes = 1000;
         int maxRow = 12;
@@ -189,8 +172,8 @@ public class Code11_MinPathNum {
             int[][] array = generateMatrix(maxRow, maxCol);
             int sum01 = minPathNum01(array);
 //            int sum02 = minPathNum02(array);
-//            int sum02 = minPathNum04(array);
-            int sum02 = minPathNum05(array);
+//            int sum02 = minPathNum03(array);
+            int sum02 = minPathNum04(array);
 
             if (sum01 != sum02) {
                 System.out.println("Opps!!!");
