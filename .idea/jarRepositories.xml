@@ -19,6 +19,11 @@
     <remote-repository>
       <option name="id" value="jzb-repository" />
       <option name="name" value="jzb-repository" />
+      <option name="url" value="175.6.138.85:8086/repository/maven-public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="jzb-repository" />
+      <option name="name" value="jzb-repository" />
       <option name="url" value="http://192.168.0.253:8086/repository/maven-public/" />
     </remote-repository>
     <remote-repository>
@@ -35,6 +40,11 @@
       <option name="id" value="jzb-repository" />
       <option name="name" value="jzb-repository" />
       <option name="url" value="http://nexus.jizhibao.club/repository/maven-public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="175.6.138.85:8086/repository/maven-public/" />
     </remote-repository>
   </component>
 </project>
