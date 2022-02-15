@@ -27,10 +27,10 @@ public class Code03_ChooseCard {
     // 先手函数
     public static int f1(int[] arr, int L, int R) {
         if (L == R) {
-            // 先手么，那这张牌就是自己拿咯
+            // 只剩最后一张牌了，那么作为先手，那这张牌就是自己拿咯
             return arr[L];
         }
-        // 拿左边的牌，获得的积分
+        // 拿左边的牌，获得的积分，那剩下的自己就作为后手了
         int left = arr[L] + g1(arr, L + 1, R);
         // 拿右边的牌，获得的积分
         int right  = arr[R] + g1(arr, L, R - 1);
