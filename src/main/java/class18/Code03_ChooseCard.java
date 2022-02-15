@@ -16,6 +16,9 @@ package class18;
  */
 public class Code03_ChooseCard {
 
+    /**
+     * 两个玩家都绝顶聪明，其中一个先手，一个后手，程序要求的就是两个人之间的胜者
+     */
     public static int win01 (int[] arr) {
         int first = f1(arr, 0, arr.length - 1);
         int last = g1(arr, 0, arr.length - 1);
