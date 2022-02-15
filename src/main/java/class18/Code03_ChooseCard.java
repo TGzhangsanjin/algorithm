@@ -51,6 +51,9 @@ public class Code03_ChooseCard {
         return Math.min(left, right);
     }
 
+    /**
+     * 加缓存的方式
+     */
     public static int win02 (int[] arr) {
         int[][] dpF = new int[arr.length][arr.length];
         int[][] dpG = new int[arr.length][arr.length];
@@ -102,7 +105,7 @@ public class Code03_ChooseCard {
      * 两个矩阵，一个先手矩阵，一个后手矩阵，因为 left <= right 所以两个矩阵都只需要考虑右上角那一半
      * 根据base case 可以得出
      *  先手矩阵从左上往右下对角线的值（left==right） 就是对应的arr[left]的值
-     *  后手举证从左上往右下对角线的值都是0
+     *  后手矩阵从左上往右下对角线的值都是0
      * 后手矩阵中非对角线的值 g[left][right] = Math.min(f[left][right - 1], f[left + 1][right])  (左边的值+下边的值)
      * 先手矩阵中非对角线的值 f[left][right] = Math.max(arr[left] + g[left + 1][right], arr[right] + g[left][right - 1])
      *
